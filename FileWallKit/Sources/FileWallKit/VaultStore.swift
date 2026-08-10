@@ -162,6 +162,75 @@ public actor VaultStore {
         }
     }
 
+    // MARK: - Query support (App Intents / Spotlight)
+    //
+    // The App Intents `EntityPropertyQuery` (Shortcuts' "Find Files" action) and
+    // Spotlight both funnel through here. The security-critical part is that the
+    // side and lifecycle filters are enforced *in the store*: callers pass only
+    // an additive content predicate, so no query path can widen the result to
+    // hidden or (by default) trashed items. App Intents always query the standard
+    // side, so `sidePredicate(.standard)` == `isHidden == NO` is what makes a
+    // hidden item unresolvable, unsuggestable and unreturnable — not UI filtering.
+
+    /// State selector for `find`. A default query passes `[.live]` only; trashed
+    /// is opt-in, treated as a deliberate act.
+    private func statePredicate(for states: Set<LifecycleFilter>) -> NSPredicate? {
+        var subs: [NSPredicate] = []
+        if states.contains(.live) {
+            subs.append(NSCompoundPredicate(andPredicateWithSubpredicates: [
+                NSPredicate(format: "deletedAt == nil"),
+                NSPredicate(format: "isArchived == %@", NSNumber(value: false))
+            ]))
+        }
+        if states.contains(.archived) {
+            subs.append(NSCompoundPredicate(andPredicateWithSubpredicates: [
+                NSPredicate(format: "deletedAt == nil"),
+                NSPredicate(format: "isArchived == %@", NSNumber(value: true))
+            ]))
+        }
+        if states.contains(.trashed) {
+            subs.append(NSPredicate(format: "deletedAt != nil"))
+        }
+        if subs.isEmpty { return nil }
+        return NSCompoundPredicate(orPredicateWithSubpredicates: subs)
+    }
+
+    /// The general query behind Shortcuts' "Find Files". `matching` is an additive
+    /// content predicate built from the user's Shortcuts filters (name, category,
+    /// size, date); it is AND-ed with the mandatory side and state predicates and
+    /// can only ever *narrow* the result.
+    public func find(side: VaultSideSelector,
+                     states: Set<LifecycleFilter>,
+                     matching content: NSPredicate?,
+                     sortDescriptors: [NSSortDescriptor],
+                     limit: Int?) async throws -> [VaultFileSnapshot] {
+        guard let statePred = statePredicate(for: states) else { return [] }
+        var subs: [NSPredicate] = [sidePredicate(side), statePred]
+        if let content { subs.append(content) }
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subs)
+        return try await context.perform {
+            let request = VaultFile.fetchRequest(predicate: predicate)
+            request.sortDescriptors = sortDescriptors.isEmpty
+                ? [NSSortDescriptor(key: "dateAdded", ascending: false)]
+                : sortDescriptors
+            if let limit { request.fetchLimit = limit }
+            return try self.context.fetch(request).map { $0.snapshot(retention: self.retention) }
+        }
+    }
+
+    /// Resolve specific ids to snapshots — the App Intents `entities(for:)` path.
+    /// Scoped to a side, so passing a hidden item's id from the standard side
+    /// (the only side App Intents queries) returns nothing: a hidden item can
+    /// never be resolved back into an entity.
+    public func snapshots(forIDs ids: [UUID], side: VaultSideSelector) async throws -> [VaultFileSnapshot] {
+        guard !ids.isEmpty else { return [] }
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            sidePredicate(side),
+            NSPredicate(format: "id IN %@", ids as NSArray)
+        ])
+        return try await fetchSnapshots(predicate: predicate)
+    }
+
     // MARK: - File writes
 
     /// Register a freshly-encrypted blob's metadata. `id` is the blob's on-disk

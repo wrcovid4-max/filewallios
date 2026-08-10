@@ -38,6 +38,16 @@ public enum VaultFileState: Equatable, Sendable {
     case trashed(autoPurgeAt: Date)
 }
 
+/// Which lifecycle states a query should return. A default query passes
+/// `[.live]` only — archived and trashed are opt-in. Kept separate from
+/// `VaultFileState` because a query selects a *set* of states, while a file is in
+/// exactly one.
+public enum LifecycleFilter: Sendable, Hashable, CaseIterable {
+    case live
+    case archived
+    case trashed
+}
+
 /// A Sendable, value-type snapshot of a `VaultFile`. The store hands these out
 /// instead of live `NSManagedObject`s so the UI, App Intents and watch layers
 /// never touch Core Data threading and never accidentally mutate the graph.
