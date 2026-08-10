@@ -12,9 +12,13 @@ let package = Package(
     platforms: [
         .iOS(.v16),
         .watchOS(.v9),
-        // macOS 13 == Ventura: first release whose CryptoKit matches the iOS 16
-        // surface we depend on (HKDF, AES.GCM, SecureEnclave.P256). Test-only.
-        .macOS(.v13)
+        // macOS 12 (Monterey) is the test host floor — it is the lowest macOS
+        // that Xcode 14.2 runs on (12.5+), and it already has everything the
+        // crypto/storage suites need: async `NSManagedObjectContext.perform`,
+        // async/await, HKDF, AES.GCM and SecureEnclave.P256. `swift test` cannot
+        // RUN a target whose deployment target is newer than the host OS, so this
+        // must not be raised above the oldest Mac we expect to build on.
+        .macOS(.v12)
     ],
     products: [
         .library(name: "FileWallKit", targets: ["FileWallKit"])

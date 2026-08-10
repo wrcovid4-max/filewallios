@@ -47,7 +47,7 @@ is called out in `PortableArchive.swift`.
 
 ```
 cd FileWallKit
-swift test          # runs on macOS 13+, no simulator needed
+swift test          # runs on macOS 12.5+, no simulator needed
 ```
 
 The `ChunkedCipher` and `PortableArchive` suites run anywhere CryptoKit exists.
