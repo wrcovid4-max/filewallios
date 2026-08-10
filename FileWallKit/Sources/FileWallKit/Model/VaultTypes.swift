@@ -9,6 +9,31 @@ public enum VaultCategory: String, CaseIterable, Sendable {
     case video
     case document
     case other
+
+    /// Bucket a MIME type into a category. Used when ingesting a restored item
+    /// whose manifest carries the real MIME type (the source of truth), and for
+    /// any import that knows only the MIME type.
+    public init(mimeType: String) {
+        let m = mimeType.lowercased()
+        if m.hasPrefix("image/") { self = .photo }
+        else if m.hasPrefix("video/") { self = .video }
+        else if m.hasPrefix("application/pdf")
+                    || m.hasPrefix("text/")
+                    || m.contains("word") || m.contains("document")
+                    || m.contains("spreadsheet") || m.contains("presentation")
+                    || m.contains("excel") || m.contains("powerpoint") { self = .document }
+        else { self = .other }
+    }
+
+    /// A generic MIME type for a category, used only when a real one is unknown.
+    public var genericMimeType: String {
+        switch self {
+        case .photo: return "image/jpeg"
+        case .video: return "video/mp4"
+        case .document: return "application/pdf"
+        case .other: return "application/octet-stream"
+        }
+    }
 }
 
 /// Which side of the vault a file or folder lives on. Orthogonal to lifecycle
@@ -55,26 +80,34 @@ public struct VaultFileSnapshot: Identifiable, Equatable, Sendable {
     public let id: UUID
     public let name: String
     public let category: VaultCategory
+    /// Original MIME type; carried through the cross-platform backup manifest.
+    public let mimeType: String
     /// On-disk size of the encrypted blob, in bytes. This is what the storage
     /// breakdown counts — archived items still occupy it, trashed items are
     /// excluded because they are on their way out.
     public let byteSize: Int64
     public let dateAdded: Date
     public let state: VaultFileState
+    /// The raw moment the file entered Recently Deleted (nil if not trashed). The
+    /// backup manifest needs this exact time — `state`'s `.trashed(autoPurgeAt:)`
+    /// carries the *purge* date (deletedAt + 30d), which is a different value.
+    public let deletedAt: Date?
     public let folderID: UUID?
     /// True only for hidden-vault items. Callers that must never surface hidden
     /// content assert on this, but the real defence is the fetch predicate: a
     /// hidden item is never fetched in the first place.
     public let isHidden: Bool
 
-    public init(id: UUID, name: String, category: VaultCategory, byteSize: Int64,
-                dateAdded: Date, state: VaultFileState, folderID: UUID?, isHidden: Bool) {
+    public init(id: UUID, name: String, category: VaultCategory, mimeType: String, byteSize: Int64,
+                dateAdded: Date, state: VaultFileState, deletedAt: Date?, folderID: UUID?, isHidden: Bool) {
         self.id = id
         self.name = name
         self.category = category
+        self.mimeType = mimeType
         self.byteSize = byteSize
         self.dateAdded = dateAdded
         self.state = state
+        self.deletedAt = deletedAt
         self.folderID = folderID
         self.isHidden = isHidden
     }
@@ -84,18 +117,19 @@ public struct VaultFileSnapshot: Identifiable, Equatable, Sendable {
 public struct VaultFolderSnapshot: Identifiable, Equatable, Sendable {
     public let id: UUID
     public let name: String
-    public let colorHex: String
+    /// Palette index, matching Android's `colorIndex` (survives backup round trips).
+    public let colorIndex: Int
     public let dateCreated: Date
     public let isHidden: Bool
     /// Count of *live* files in the folder. Archived and trashed items are
     /// excluded — a folder's badge reflects what you'd see if you opened it.
     public let liveItemCount: Int
 
-    public init(id: UUID, name: String, colorHex: String, dateCreated: Date,
+    public init(id: UUID, name: String, colorIndex: Int, dateCreated: Date,
                 isHidden: Bool, liveItemCount: Int) {
         self.id = id
         self.name = name
-        self.colorHex = colorHex
+        self.colorIndex = colorIndex
         self.dateCreated = dateCreated
         self.isHidden = isHidden
         self.liveItemCount = liveItemCount

@@ -30,6 +30,7 @@ enum VaultModel {
             attr("id", .UUIDAttributeType),
             attr("name", .stringAttributeType),
             attr("categoryRaw", .stringAttributeType),
+            attr("mimeType", .stringAttributeType),
             attr("byteSize", .integer64AttributeType),
             attr("dateAdded", .dateAttributeType),
             attr("isHidden", .booleanAttributeType),
@@ -40,7 +41,7 @@ enum VaultModel {
         folder.properties = [
             attr("id", .UUIDAttributeType),
             attr("name", .stringAttributeType),
-            attr("colorHex", .stringAttributeType),
+            attr("colorIndex", .integer64AttributeType),
             attr("dateCreated", .dateAttributeType),
             attr("isHidden", .booleanAttributeType)
         ]

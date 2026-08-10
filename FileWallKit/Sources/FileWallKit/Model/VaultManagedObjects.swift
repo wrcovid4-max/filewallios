@@ -18,6 +18,11 @@ final class VaultFile: NSManagedObject {
     @NSManaged var id: UUID
     @NSManaged var name: String
     @NSManaged var categoryRaw: String
+    /// The original MIME type (e.g. "application/pdf"). Persisted because the
+    /// cross-platform backup manifest carries it and Android keys behaviour off
+    /// it — deriving a generic type from `category` on export would lose fidelity
+    /// on an iOS→Android→iOS round trip. `category` is derived from this.
+    @NSManaged var mimeType: String
     @NSManaged var byteSize: Int64
     @NSManaged var dateAdded: Date
     @NSManaged var isHidden: Bool
@@ -38,8 +43,8 @@ final class VaultFile: NSManagedObject {
 
     func snapshot(retention: TimeInterval) -> VaultFileSnapshot {
         VaultFileSnapshot(
-            id: id, name: name, category: category, byteSize: byteSize,
-            dateAdded: dateAdded, state: state(retention: retention),
+            id: id, name: name, category: category, mimeType: mimeType, byteSize: byteSize,
+            dateAdded: dateAdded, state: state(retention: retention), deletedAt: deletedAt,
             folderID: folder?.id, isHidden: isHidden)
     }
 }
@@ -48,7 +53,10 @@ final class VaultFile: NSManagedObject {
 final class VaultFolder: NSManagedObject {
     @NSManaged var id: UUID
     @NSManaged var name: String
-    @NSManaged var colorHex: String
+    /// Palette index (0-based), matching Android's `colorIndex`. Stored as an
+    /// index rather than a hex string so folder colour survives a cross-platform
+    /// backup round trip; the UI maps it to an actual colour.
+    @NSManaged var colorIndex: Int64
     @NSManaged var dateCreated: Date
     @NSManaged var isHidden: Bool
     @NSManaged var files: Set<VaultFile>

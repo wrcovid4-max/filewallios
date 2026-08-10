@@ -58,7 +58,7 @@ final class VaultLifecycleTests: XCTestCase {
 
     func testTrashDropsFolderCountButRestoreReturnsIt() async throws {
         let store = try makeStore()
-        let folder = try await store.createFolder(name: "F", colorHex: "#fff", side: .standard)
+        let folder = try await store.createFolder(name: "F", colorIndex: 3, side: .standard)
         let snap = try await addFile(store, folderID: folder.id)
 
         XCTAssertEqual(try await store.folders(side: .standard).first?.liveItemCount, 1)

@@ -236,8 +236,8 @@ public actor VaultStore {
     /// Register a freshly-encrypted blob's metadata. `id` is the blob's on-disk
     /// UUID filename; the caller has already written `<blobsDirectory>/<id>`.
     /// New files are always born live.
-    public func importFile(id: UUID, name: String, category: VaultCategory, byteSize: Int64,
-                           folderID: UUID?, side: VaultSideSelector) async throws -> VaultFileSnapshot {
+    public func importFile(id: UUID, name: String, category: VaultCategory, mimeType: String? = nil,
+                           byteSize: Int64, folderID: UUID?, side: VaultSideSelector) async throws -> VaultFileSnapshot {
         try await context.perform {
             // insertNewObject(forEntityName:) rather than VaultFile(context:): with
             // a programmatically-built model shared across stores, entity lookup by
@@ -246,6 +246,7 @@ public actor VaultStore {
             file.id = id
             file.name = name
             file.categoryRaw = category.rawValue
+            file.mimeType = mimeType ?? category.genericMimeType
             file.byteSize = byteSize
             file.dateAdded = Date()
             file.isHidden = side.isHidden
@@ -357,12 +358,12 @@ public actor VaultStore {
 
     // MARK: - Folders
 
-    public func createFolder(name: String, colorHex: String, side: VaultSideSelector) async throws -> VaultFolderSnapshot {
+    public func createFolder(name: String, colorIndex: Int, side: VaultSideSelector) async throws -> VaultFolderSnapshot {
         try await context.perform {
             let folder = NSEntityDescription.insertNewObject(forEntityName: "VaultFolder", into: self.context) as! VaultFolder
             folder.id = UUID()
             folder.name = name
-            folder.colorHex = colorHex
+            folder.colorIndex = Int64(colorIndex)
             folder.dateCreated = Date()
             folder.isHidden = side.isHidden
             try self.context.save()
@@ -384,6 +385,73 @@ public actor VaultStore {
         try await context.perform {
             guard let folder = try self.folderObject(id) else { throw VaultError.notFound }
             self.context.delete(folder)
+            try self.context.save()
+        }
+    }
+
+    // MARK: - Backup / restore bridge
+    //
+    // Backup is the one operation that intentionally spans ALL states and the
+    // sides the caller can decrypt. It is the caller's job (the app layer) to
+    // supply the vault keys per side — the hidden side's key is biometry-gated, so
+    // an unattended auto-backup passes only `[.standard]`, while a manual,
+    // authenticated backup passes both. The store just enumerates and re-creates.
+
+    /// Every file on the given sides, in every lifecycle state, for a backup.
+    public func allFilesForBackup(sides: Set<VaultSideSelector>) async throws -> [VaultFileSnapshot] {
+        guard !sides.isEmpty else { return [] }
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: sides.map { sidePredicate($0) })
+        return try await fetchSnapshots(predicate: predicate)
+    }
+
+    /// Every folder on the given sides, for a backup.
+    public func allFoldersForBackup(sides: Set<VaultSideSelector>) async throws -> [VaultFolderSnapshot] {
+        guard !sides.isEmpty else { return [] }
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: sides.map { sidePredicate($0) })
+        return try await context.perform {
+            let request = VaultFolder.fetchRequest(predicate: predicate)
+            request.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: true)]
+            return try self.context.fetch(request).map { self.folderSnapshot($0) }
+        }
+    }
+
+    /// Re-create a folder from a backup, assigning it a fresh local UUID (the
+    /// caller maps the archive's folder id → the returned UUID so items can be
+    /// re-linked). Preserves name, colour, side and creation date.
+    public func createFolderForRestore(name: String, colorIndex: Int, hidden: Bool,
+                                       createdAt: Date) async throws -> UUID {
+        try await context.perform {
+            let folder = NSEntityDescription.insertNewObject(forEntityName: "VaultFolder", into: self.context) as! VaultFolder
+            folder.id = UUID()
+            folder.name = name
+            folder.colorIndex = Int64(colorIndex)
+            folder.dateCreated = createdAt
+            folder.isHidden = hidden
+            try self.context.save()
+            return folder.id
+        }
+    }
+
+    /// Re-create a file from a backup with its exact lifecycle state. `id` is a
+    /// fresh local blob UUID (the caller has already re-encrypted the plaintext to
+    /// `<blobsDirectory>/<id>`). A trashed item keeps its `deletedAt` so the
+    /// 30-day purge clock resumes from the original deletion time; `isArchived` is
+    /// forced off for a trashed item so a file is never in two states at once.
+    public func importRestored(id: UUID, name: String, category: VaultCategory, mimeType: String,
+                               byteSize: Int64, folderID: UUID?, hidden: Bool, archived: Bool,
+                               deletedAt: Date?, dateAdded: Date) async throws {
+        try await context.perform {
+            let file = NSEntityDescription.insertNewObject(forEntityName: "VaultFile", into: self.context) as! VaultFile
+            file.id = id
+            file.name = name
+            file.categoryRaw = category.rawValue
+            file.mimeType = mimeType
+            file.byteSize = byteSize
+            file.dateAdded = dateAdded
+            file.isHidden = hidden
+            file.deletedAt = deletedAt
+            file.isArchived = (deletedAt == nil) ? archived : false
+            file.folder = try folderID.flatMap { try self.folderObject($0) }
             try self.context.save()
         }
     }
@@ -432,7 +500,7 @@ public actor VaultStore {
         // Count only live files in the folder — archived/trashed excluded.
         let liveCount = folder.files.filter { $0.deletedAt == nil && !$0.isArchived }.count
         return VaultFolderSnapshot(
-            id: folder.id, name: folder.name, colorHex: folder.colorHex,
+            id: folder.id, name: folder.name, colorIndex: Int(folder.colorIndex),
             dateCreated: folder.dateCreated, isHidden: folder.isHidden, liveItemCount: liveCount)
     }
 

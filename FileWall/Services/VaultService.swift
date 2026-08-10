@@ -22,6 +22,11 @@ final class VaultService {
     /// racing to build two stores over the same SQLite file.
     private let storeTask: Task<VaultStore, Error>
 
+    /// The wrapped-key store, shared across app/widgets/watch via the keychain
+    /// access group. Holds only wrapped keys; the plaintext vault key is derived
+    /// transiently. Backup/restore use this to decrypt/re-encrypt device blobs.
+    let keyStore = VaultKeyStore(accessGroup: AppEnvironment.keychainAccessGroup)
+
     private init() {
         storeTask = Task {
             try VaultStore(blobsDirectory: AppEnvironment.vaultDirectory)
@@ -29,6 +34,10 @@ final class VaultService {
     }
 
     private func store() async throws -> VaultStore { try await storeTask.value }
+
+    /// The shared metadata store, for the backup layer (which needs the full,
+    /// all-sides enumeration and the restore-import methods).
+    func vaultStore() async throws -> VaultStore { try await store() }
 
     // MARK: - App Intents query surface (standard side only)
 

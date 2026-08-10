@@ -20,6 +20,10 @@ development and sideloading to registered devices.
   no simulator.
 - **[FileWall/AppIntents/APP_INTENTS.md](FileWall/AppIntents/APP_INTENTS.md)** —
   the App Intents layer and the Shortcuts "Find Files" action it generates.
+- **[FileWall/Google/BACKUP_SYNC.md](FileWall/Google/BACKUP_SYNC.md)** — Google
+  sign-in + Drive "Backup & Sync" (native OAuth, no SDK), and how to configure it.
+- **[BACKUP_FORMAT.md](BACKUP_FORMAT.md)** — the cross-platform `.fwvault` wire
+  format shared with the Android app. The contract; match it byte-for-byte.
 
 ## Layout
 
