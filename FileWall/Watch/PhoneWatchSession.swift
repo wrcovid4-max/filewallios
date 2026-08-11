@@ -29,9 +29,25 @@ final class PhoneWatchSession: NSObject, WCSessionDelegate {
     func sessionDidBecomeInactive(_ session: WCSession) {}
     func sessionDidDeactivate(_ session: WCSession) { session.activate() } // re-activate for a new watch
 
+    private var watchSyncEnabled: Bool {
+        UserDefaults.standard.object(forKey: Pref.watchSync) as? Bool ?? Pref.defaultWatchSync
+    }
+
     func session(_ session: WCSession,
                  didReceiveMessage message: [String: Any],
                  replyHandler: @escaping ([String: Any]) -> Void) {
+        // "Sync to Wear OS" off → answer with nothing. The watch shows an empty
+        // vault and can't pull any content.
+        guard watchSyncEnabled else {
+            if message[WatchMessage.requestKey] as? String == WatchMessage.manifest,
+               let empty = try? WatchVaultManifest(items: [], totalBytes: 0).encoded() {
+                replyHandler([WatchMessage.payloadKey: empty])
+            } else {
+                replyHandler([WatchMessage.errorKey: "Watch sync is turned off"])
+            }
+            return
+        }
+
         switch message[WatchMessage.requestKey] as? String {
 
         case WatchMessage.manifest:

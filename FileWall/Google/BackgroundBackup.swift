@@ -39,6 +39,11 @@ enum BackgroundBackup {
         try? BGTaskScheduler.shared.submit(request)
     }
 
+    /// Cancel any pending scheduled backup (the "Back up daily" toggle turning off).
+    static func cancel() {
+        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier)
+    }
+
     private static func handle(_ task: BGProcessingTask) {
         schedule() // always queue the next one first
 
@@ -58,5 +63,6 @@ enum BackgroundBackup {
     // use NSBackgroundActivityScheduler). No-ops keep call sites cross-platform.
     static func registerHandler() {}
     static func schedule(after interval: TimeInterval = 6 * 60 * 60) {}
+    static func cancel() {}
 #endif
 }

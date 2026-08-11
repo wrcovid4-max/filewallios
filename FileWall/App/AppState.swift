@@ -24,16 +24,22 @@ final class AppState: ObservableObject {
         set { UserDefaults.standard.set(newValue, forKey: "biometricsOnly"); objectWillChange.send() }
     }
 
+    private var autoLockTask: Task<Void, Never>?
+
     func unlockHidden() async -> Bool {
         let ok = await BiometricAuth.authenticate(reason: "Unlock your hidden vault",
                                                   biometricsOnly: biometricsOnly)
-        if ok { hiddenUnlocked = true }
+        if ok {
+            hiddenUnlocked = true
+            scheduleAutoLock()
+        }
         return ok
     }
 
     /// Seal the hidden side immediately and wipe the preview cache — the UI twin
     /// of LockVaultIntent, independent of any inactivity timer.
     func lockHidden() {
+        autoLockTask?.cancel()
         hiddenUnlocked = false
         VaultService.wipePreviewCache()
     }
@@ -41,5 +47,28 @@ final class AppState: ObservableObject {
     /// Called when the app backgrounds: lock the hidden side and wipe plaintext.
     func handleBackgrounding() {
         lockHidden()
+    }
+
+    // MARK: Inactivity auto-lock (a session timeout from unlock, reset on foreground)
+
+    private var autoLockSeconds: Int {
+        UserDefaults.standard.object(forKey: Pref.autoLockSeconds) as? Int ?? Pref.defaultAutoLockSeconds
+    }
+
+    /// (Re)start the auto-lock countdown. 0 seconds == never.
+    func scheduleAutoLock() {
+        autoLockTask?.cancel()
+        let seconds = autoLockSeconds
+        guard hiddenUnlocked, seconds > 0 else { return }
+        autoLockTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: UInt64(seconds) * 1_000_000_000)
+            guard !Task.isCancelled else { return }
+            self?.lockHidden()
+        }
+    }
+
+    /// Reset the countdown on user activity / return to foreground.
+    func noteActivity() {
+        if hiddenUnlocked { scheduleAutoLock() }
     }
 }

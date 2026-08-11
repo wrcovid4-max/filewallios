@@ -13,24 +13,30 @@ struct RootView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
 
+    @AppStorage(Pref.appearance) private var appearanceRaw = Appearance.system.rawValue
+    @AppStorage(Pref.allowScreenshots) private var allowScreenshots = false
+
+    private var appearance: Appearance { Appearance(rawValue: appearanceRaw) ?? .system }
+
     var body: some View {
         adaptiveContent
+            .preferredColorScheme(appearance.colorScheme)
             .overlay { screenObscuringOverlay }
             .onChange(of: scenePhase) { phase in
                 switch phase {
-                case .active:     app.isObscured = isScreenCaptured
-                case .inactive:   app.isObscured = true             // app-switcher snapshot shows nothing
-                case .background: app.isObscured = true; app.handleBackgrounding()
+                case .active:     app.isObscured = shouldObscure(captured: isScreenCaptured); app.noteActivity()
+                case .inactive:   app.isObscured = shouldObscure(captured: true)   // app-switcher snapshot
+                case .background: app.isObscured = shouldObscure(captured: true); app.handleBackgrounding()
                 @unknown default: break
                 }
             }
             .task { VaultService.wipePreviewCache() }
             #if os(iOS)
             .onReceive(NotificationCenter.default.publisher(for: UIScreen.capturedDidChangeNotification)) { _ in
-                app.isObscured = isScreenCaptured
+                app.isObscured = shouldObscure(captured: isScreenCaptured)
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)) { _ in
-                app.showScreenshotAlert = true
+                if !allowScreenshots { app.showScreenshotAlert = true }
             }
             .alert("Screenshot saved to Photos", isPresented: $app.showScreenshotAlert) {
                 Button("OK", role: .cancel) {}
@@ -76,6 +82,11 @@ struct RootView: View {
             .ignoresSafeArea()
             .transition(.opacity)
         }
+    }
+
+    /// Obscure the screen only when the user hasn't opted to allow screenshots.
+    private func shouldObscure(captured: Bool) -> Bool {
+        allowScreenshots ? false : captured
     }
 
     private var isScreenCaptured: Bool {

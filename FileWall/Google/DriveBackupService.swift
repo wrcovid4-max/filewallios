@@ -67,60 +67,54 @@ final class DriveBackupService {
     @discardableResult
     func backup(sides: Set<VaultSideSelector>) async throws -> BackupResult {
         guard await GoogleAuth.shared.isSignedIn else { throw BackupError.notSignedIn }
+        let work = try Self.makeWorkDir(prefix: "fwbackup")
+        defer { try? FileManager.default.removeItem(at: work) }
+        let archiveURL = work.appendingPathComponent(InteropArchiveName.archive)
+        let result = try await buildArchive(passphrase: try await managedPassphrase(), sides: sides,
+                                            to: archiveURL, work: work)
+        try await drive.uploadFile(name: InteropArchiveName.archive, fileURL: archiveURL)
+        return result
+    }
 
+    /// Build a `.fwvault` at `archiveURL`, keyed by `passphrase`. Plaintext temps
+    /// live under `work` (the caller owns it). Shared by Drive backup and local
+    /// export — the only difference is where the passphrase comes from and what
+    /// happens to the finished file.
+    @discardableResult
+    private func buildArchive(passphrase: String, sides: Set<VaultSideSelector>,
+                              to archiveURL: URL, work: URL) async throws -> BackupResult {
         let store = try await VaultService.shared.vaultStore()
         let keyStore = VaultService.shared.keyStore
-
         let folders = try await store.allFoldersForBackup(sides: sides)
         let files = try await store.allFilesForBackup(sides: sides)
-
-        let work = FileManager.default.temporaryDirectory
-            .appendingPathComponent("fwbackup-\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: work, withIntermediateDirectories: true)
-        defer { try? FileManager.default.removeItem(at: work) }
 
         var keyCache: [VaultSideSelector: SymmetricKey] = [:]
         var plaintextByID: [String: URL] = [:]
         var items: [BackupItem] = []
-
         for f in files {
             let side: VaultSideSelector = f.isHidden ? .hidden : .standard
             let key = try await key(for: side, keyStore: keyStore, cache: &keyCache)
-
             let blobURL = AppEnvironment.vaultDirectory.appendingPathComponent(f.id.uuidString)
             let plainURL = work.appendingPathComponent("plain-\(f.id.uuidString)")
             try await cipher.decryptFile(at: blobURL, to: plainURL, using: key)
-
-            let plaintextSize = Self.fileSize(plainURL)
-
             plaintextByID[f.id.uuidString] = plainURL
             items.append(BackupItem(
-                id: f.id.uuidString,
-                name: f.name,
-                mimeType: f.mimeType,
-                sizeBytes: plaintextSize,
-                addedAt: Self.ms(f.dateAdded),
-                folderId: f.folderID?.uuidString,
-                hidden: f.isHidden,
-                archived: f.state == .archived,
-                deletedAt: f.deletedAt.map(Self.ms) ?? 0,
+                id: f.id.uuidString, name: f.name, mimeType: f.mimeType,
+                sizeBytes: Self.fileSize(plainURL), addedAt: Self.ms(f.dateAdded),
+                folderId: f.folderID?.uuidString, hidden: f.isHidden,
+                archived: f.state == .archived, deletedAt: f.deletedAt.map(Self.ms) ?? 0,
                 entry: "blobs/\(f.id.uuidString)"))
         }
-
         let backupFolders = folders.map {
             BackupFolder(id: $0.id.uuidString, name: $0.name, colorIndex: $0.colorIndex,
                          createdAt: Self.ms($0.dateCreated), hidden: $0.isHidden)
         }
-
-        let archiveURL = work.appendingPathComponent(InteropArchiveName.archive)
         try InteropArchive().write(
-            folders: backupFolders, items: items, passphrase: try await managedPassphrase(),
+            folders: backupFolders, items: items, passphrase: passphrase,
             to: archiveURL, createdAt: Self.ms(Date())) { item in
                 guard let url = plaintextByID[item.id] else { throw BackupError.noBackupFound }
                 return url
             }
-
-        try await drive.uploadFile(name: InteropArchiveName.archive, fileURL: archiveURL)
         return BackupResult(items: items.count, folders: backupFolders.count)
     }
 
@@ -154,27 +148,28 @@ final class DriveBackupService {
         guard let id = try await d.findFileId(name: InteropArchiveName.archive) else {
             throw BackupError.noBackupFound
         }
-
-        let work = FileManager.default.temporaryDirectory
-            .appendingPathComponent("fwrestore-\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: work, withIntermediateDirectories: true)
+        let work = try Self.makeWorkDir(prefix: "fwrestore")
         defer { try? FileManager.default.removeItem(at: work) }
-
         let archiveURL = work.appendingPathComponent(InteropArchiveName.archive)
         try await d.download(id: id, to: archiveURL)
+        return try await ingestArchive(from: archiveURL, passphrase: try await managedPassphrase())
+    }
 
-        let staged = try InteropArchive().readStaged(from: archiveURL, passphrase: try await managedPassphrase())
+    /// Verify, decrypt and ingest a `.fwvault` into the vault, re-creating folders
+    /// then re-encrypting each item with its exact state. Shared by Drive restore
+    /// and local import.
+    @discardableResult
+    private func ingestArchive(from archiveURL: URL, passphrase: String) async throws -> BackupResult {
+        let staged = try InteropArchive().readStaged(from: archiveURL, passphrase: passphrase)
         defer { try? FileManager.default.removeItem(at: staged.stagingDirectory) }
 
         let store = try await VaultService.shared.vaultStore()
         let keyStore = VaultService.shared.keyStore
 
-        // Folders first, mapping the archive's folder id → the new local UUID.
         var folderMap: [String: UUID] = [:]
         for f in staged.folders {
             let newID = try await store.createFolderForRestore(
-                name: f.name, colorIndex: f.colorIndex, hidden: f.hidden,
-                createdAt: Self.date(f.createdAt))
+                name: f.name, colorIndex: f.colorIndex, hidden: f.hidden, createdAt: Self.date(f.createdAt))
             folderMap[f.id] = newID
         }
 
@@ -182,27 +177,40 @@ final class DriveBackupService {
         for (item, plainURL) in staged.items {
             let side: VaultSideSelector = item.hidden ? .hidden : .standard
             let key = try await key(for: side, keyStore: keyStore, cache: &keyCache)
-
-            // New local blob UUID; re-encrypt the plaintext into the device format.
             let newID = UUID()
             let blobURL = AppEnvironment.vaultDirectory.appendingPathComponent(newID.uuidString)
             try await cipher.encryptFile(at: plainURL, to: blobURL, using: key)
-            let encryptedSize = Self.fileSize(blobURL)
-
             try await store.importRestored(
-                id: newID,
-                name: item.name,
-                category: VaultCategory(mimeType: item.mimeType),
-                mimeType: item.mimeType,
-                byteSize: encryptedSize,
+                id: newID, name: item.name, category: VaultCategory(mimeType: item.mimeType),
+                mimeType: item.mimeType, byteSize: Self.fileSize(blobURL),
                 folderID: item.folderId.flatMap { folderMap[$0] },
-                hidden: item.hidden,
-                archived: item.archived,
+                hidden: item.hidden, archived: item.archived,
                 deletedAt: item.deletedAt == 0 ? nil : Self.date(item.deletedAt),
                 dateAdded: Self.date(item.addedAt))
         }
-
         return BackupResult(items: staged.items.count, folders: staged.folders.count)
+    }
+
+    // MARK: - Local .fwvault (passphrase, no Google)
+
+    /// Export the whole vault to a passphrase-protected `.fwvault` at a temp URL
+    /// the caller shares/saves ("Save to Files"). No Google account required.
+    func exportLocalArchive(passphrase: String, sides: Set<VaultSideSelector> = [.standard, .hidden]) async throws -> URL {
+        let work = try Self.makeWorkDir(prefix: "fwexport")
+        defer { try? FileManager.default.removeItem(at: work) }
+        // The finished file lives OUTSIDE `work`, so cleaning up the plaintext
+        // temps doesn't take the archive with it.
+        let out = FileManager.default.temporaryDirectory
+            .appendingPathComponent("FileWall-\(Self.stamp()).fwvault")
+        try? FileManager.default.removeItem(at: out)
+        _ = try await buildArchive(passphrase: passphrase, sides: sides, to: out, work: work)
+        return out
+    }
+
+    /// Import a local `.fwvault` the user picked, with the passphrase they typed.
+    @discardableResult
+    func importLocalArchive(from url: URL, passphrase: String) async throws -> BackupResult {
+        try await ingestArchive(from: url, passphrase: passphrase)
     }
 
     /// modifiedTime of the stored backup (for a "Last backed up …" label), or nil.
@@ -219,6 +227,18 @@ final class DriveBackupService {
         let k = try await keyStore.vaultKey(for: side == .hidden ? .hidden : .standard)
         cache[side] = k
         return k
+    }
+
+    private static func makeWorkDir(prefix: String) throws -> URL {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("\(prefix)-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
+        return url
+    }
+
+    private static func stamp() -> String {
+        let f = DateFormatter()
+        f.dateFormat = "yyyyMMdd-HHmmss"
+        return f.string(from: Date())
     }
 
     private static func fileSize(_ url: URL) -> Int64 {
