@@ -5,6 +5,9 @@ import CoreData
 /// Lifecycle and retention tests for `VaultStore`. Core Data is available on
 /// macOS, so these run under `swift test` on a laptop with an in-memory store —
 /// no simulator, no device.
+///
+/// Note: `await` cannot appear inside an `XCTAssert…` autoclosure (it is not an
+/// async context), so every awaited value is hoisted to a `let` first.
 final class VaultLifecycleTests: XCTestCase {
 
     private var tempDir: URL!
@@ -50,7 +53,8 @@ final class VaultLifecycleTests: XCTestCase {
         let snap = try await addFile(store)
         try await store.trash(id: snap.id)
 
-        XCTAssertTrue(try await store.liveFiles(side: .standard).isEmpty)
+        let live = try await store.liveFiles(side: .standard)
+        XCTAssertTrue(live.isEmpty)
         let trashed = try await store.recentlyDeletedFiles(side: .standard)
         XCTAssertEqual(trashed.map(\.id), [snap.id])
         if case .trashed = trashed[0].state {} else { XCTFail("expected trashed state") }
@@ -61,13 +65,17 @@ final class VaultLifecycleTests: XCTestCase {
         let folder = try await store.createFolder(name: "F", colorIndex: 3, side: .standard)
         let snap = try await addFile(store, folderID: folder.id)
 
-        XCTAssertEqual(try await store.folders(side: .standard).first?.liveItemCount, 1)
+        var folders = try await store.folders(side: .standard)
+        XCTAssertEqual(folders.first?.liveItemCount, 1)
         try await store.trash(id: snap.id)
-        XCTAssertEqual(try await store.folders(side: .standard).first?.liveItemCount, 0)
+        folders = try await store.folders(side: .standard)
+        XCTAssertEqual(folders.first?.liveItemCount, 0)
 
         try await store.restore(id: snap.id)
-        XCTAssertEqual(try await store.folders(side: .standard).first?.liveItemCount, 1)
-        XCTAssertEqual(try await store.liveFiles(side: .standard).map(\.id), [snap.id])
+        folders = try await store.folders(side: .standard)
+        XCTAssertEqual(folders.first?.liveItemCount, 1)
+        let live = try await store.liveFiles(side: .standard)
+        XCTAssertEqual(live.map(\.id), [snap.id])
     }
 
     // MARK: Storage accounting — trashed drops, archived does not
@@ -84,7 +92,8 @@ final class VaultLifecycleTests: XCTestCase {
         try await store.archive(id: a.id)
         storage = try await store.storageBreakdown(side: .standard)
         XCTAssertEqual(storage.totalBytes, 1500)
-        XCTAssertTrue(try await store.liveFiles(side: .standard).map(\.id) == [b.id])
+        let live = try await store.liveFiles(side: .standard)
+        XCTAssertEqual(live.map(\.id), [b.id])
 
         // Trashing drops them.
         try await store.trash(id: b.id)
@@ -98,12 +107,15 @@ final class VaultLifecycleTests: XCTestCase {
         let store = try makeStore()
         let snap = try await addFile(store)
         try await store.archive(id: snap.id)
-        XCTAssertEqual(try await store.archivedFiles(side: .standard).map(\.id), [snap.id])
+        var archived = try await store.archivedFiles(side: .standard)
+        XCTAssertEqual(archived.map(\.id), [snap.id])
 
         try await store.trash(id: snap.id)
         // No longer in archive; only in recently deleted.
-        XCTAssertTrue(try await store.archivedFiles(side: .standard).isEmpty)
-        XCTAssertEqual(try await store.recentlyDeletedFiles(side: .standard).map(\.id), [snap.id])
+        archived = try await store.archivedFiles(side: .standard)
+        XCTAssertTrue(archived.isEmpty)
+        let trashed = try await store.recentlyDeletedFiles(side: .standard)
+        XCTAssertEqual(trashed.map(\.id), [snap.id])
     }
 
     func testArchivingTrashedItemIsRejected() async throws {
@@ -133,10 +145,13 @@ final class VaultLifecycleTests: XCTestCase {
         let store = try makeStore()
         let snap = try await addFile(store)
         try await store.archive(id: snap.id)
-        XCTAssertTrue(try await store.liveFiles(side: .standard).isEmpty)
+        var live = try await store.liveFiles(side: .standard)
+        XCTAssertTrue(live.isEmpty)
         try await store.unarchive(id: snap.id)
-        XCTAssertEqual(try await store.liveFiles(side: .standard).map(\.id), [snap.id])
-        XCTAssertTrue(try await store.archivedFiles(side: .standard).isEmpty)
+        live = try await store.liveFiles(side: .standard)
+        XCTAssertEqual(live.map(\.id), [snap.id])
+        let archived = try await store.archivedFiles(side: .standard)
+        XCTAssertTrue(archived.isEmpty)
     }
 
     // MARK: Delete Forever / Empty
@@ -150,7 +165,8 @@ final class VaultLifecycleTests: XCTestCase {
         XCTAssertTrue(FileManager.default.fileExists(atPath: blob.path))
         try await store.deleteForever(id: snap.id)
         XCTAssertFalse(FileManager.default.fileExists(atPath: blob.path))
-        XCTAssertTrue(try await store.recentlyDeletedFiles(side: .standard).isEmpty)
+        let trashed = try await store.recentlyDeletedFiles(side: .standard)
+        XCTAssertTrue(trashed.isEmpty)
     }
 
     func testDeleteForeverRequiresTrashed() async throws {
@@ -175,9 +191,11 @@ final class VaultLifecycleTests: XCTestCase {
 
         let purged = try await store.emptyRecentlyDeleted(side: .standard)
         XCTAssertEqual(purged, 2)
-        XCTAssertTrue(try await store.recentlyDeletedFiles(side: .standard).isEmpty)
+        let standardTrash = try await store.recentlyDeletedFiles(side: .standard)
+        XCTAssertTrue(standardTrash.isEmpty)
         // Hidden side's trash is untouched — separate Recently Deleted per side.
-        XCTAssertEqual(try await store.recentlyDeletedFiles(side: .hidden).map(\.id), [h1.id])
+        let hiddenTrash = try await store.recentlyDeletedFiles(side: .hidden)
+        XCTAssertEqual(hiddenTrash.map(\.id), [h1.id])
     }
 
     // MARK: Retention purge
@@ -200,7 +218,8 @@ final class VaultLifecycleTests: XCTestCase {
         let purged = try await store.purgeExpired(now: now.addingTimeInterval(31 * 24 * 3600))
         XCTAssertEqual(Set(purged), Set([old.id, recent.id]))
         XCTAssertFalse(FileManager.default.fileExists(atPath: oldBlob.path))
-        XCTAssertTrue(try await store.recentlyDeletedFiles(side: .standard).isEmpty)
+        let trashed = try await store.recentlyDeletedFiles(side: .standard)
+        XCTAssertTrue(trashed.isEmpty)
     }
 
     func testPurgeSpansBothSides() async throws {
@@ -220,18 +239,23 @@ final class VaultLifecycleTests: XCTestCase {
         let visible = try await addFile(store, side: .standard)
         _ = try await addFile(store, side: .hidden)
 
-        XCTAssertEqual(try await store.liveFiles(side: .standard).map(\.id), [visible.id])
+        let standardLive = try await store.liveFiles(side: .standard)
+        XCTAssertEqual(standardLive.map(\.id), [visible.id])
         // The hidden item is present on its own side, and only there.
-        XCTAssertEqual(try await store.liveFiles(side: .hidden).count, 1)
+        let hiddenLive = try await store.liveFiles(side: .hidden)
+        XCTAssertEqual(hiddenLive.count, 1)
         // Standard storage counts only the visible file.
-        XCTAssertEqual(try await store.storageBreakdown(side: .standard).itemCount, 1)
+        let storage = try await store.storageBreakdown(side: .standard)
+        XCTAssertEqual(storage.itemCount, 1)
     }
 
     func testSetHiddenMovesAcrossSides() async throws {
         let store = try makeStore()
         let snap = try await addFile(store, side: .standard)
         try await store.setHidden(id: snap.id, true)
-        XCTAssertTrue(try await store.liveFiles(side: .standard).isEmpty)
-        XCTAssertEqual(try await store.liveFiles(side: .hidden).map(\.id), [snap.id])
+        let standardLive = try await store.liveFiles(side: .standard)
+        XCTAssertTrue(standardLive.isEmpty)
+        let hiddenLive = try await store.liveFiles(side: .hidden)
+        XCTAssertEqual(hiddenLive.map(\.id), [snap.id])
     }
 }
