@@ -2,6 +2,7 @@ import SwiftUI
 import FileWallKit
 #if os(iOS)
 import QuickLook
+import UIKit
 #endif
 
 /// Full view of one item. Photos display in-app (zoom with a pinch); other
@@ -16,6 +17,10 @@ struct ItemDetailView: View {
     @State private var imageData: Data?
     @State private var previewURL: URL?
     @State private var scale: CGFloat = 1
+    #if os(iOS)
+    @State private var showFullScreen = false
+    @State private var showMarkup = false
+    #endif
 
     var body: some View {
         Group {
@@ -29,6 +34,19 @@ struct ItemDetailView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
+                    #if os(iOS)
+                    Button { showFullScreen = true } label: {
+                        Label("Full Screen", systemImage: "arrow.up.left.and.arrow.down.right")
+                    }
+                    .disabled(item.category == .photo ? imageData == nil : previewURL == nil)
+                    if item.category == .photo {
+                        Button { showMarkup = true } label: {
+                            Label("Markup", systemImage: "pencil.tip.crop.circle")
+                        }
+                        .disabled(imageData == nil)
+                    }
+                    Divider()
+                    #endif
                     if let previewURL {
                         ShareLink("Export a Copy", item: previewURL)
                     }
@@ -39,7 +57,61 @@ struct ItemDetailView: View {
             }
         }
         .task { await prepare() }
+        #if os(iOS)
+        .fullScreenCover(isPresented: $showFullScreen) { fullScreenViewer }
+        .fullScreenCover(isPresented: $showMarkup) { markupEditor }
+        #endif
     }
+
+    #if os(iOS)
+    // A borderless, full-screen presentation of the item — the iPad payoff of
+    // "Full Screen" when the preview otherwise sits in the split-view detail pane.
+    @ViewBuilder
+    private var fullScreenViewer: some View {
+        NavigationStack {
+            Group {
+                if item.category == .photo, let imageData, let image = Image(vaultData: imageData) {
+                    ZoomableImage(image: image)
+                } else if let previewURL {
+                    QuickLookView(url: previewURL).ignoresSafeArea()
+                } else {
+                    ProgressView()
+                }
+            }
+            .navigationTitle(item.name)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Done") { showFullScreen = false } }
+                if item.category == .photo {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button { showFullScreen = false; showMarkup = true } label: {
+                            Label("Markup", systemImage: "pencil.tip.crop.circle")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var markupEditor: some View {
+        if let imageData, let ui = UIImage(data: imageData) {
+            MarkupView(baseImage: ui) { data in Task { await saveMarkup(data) } }
+        } else {
+            // Shouldn't happen (button is disabled until loaded), but stay safe.
+            Color.clear.onAppear { showMarkup = false }
+        }
+    }
+
+    /// Save the annotated image as a *new* vault item, next to the original — markup
+    /// never overwrites the source.
+    private func saveMarkup(_ data: Data) async {
+        let base = (item.name as NSString).deletingPathExtension
+        let name = "\(base) markup.png"
+        _ = try? await VaultService.shared.importData(data, name: name, mimeType: "image/png",
+                                                      folderID: item.folderID, side: side)
+    }
+    #endif
 
     @ViewBuilder
     private var photoView: some View {
@@ -97,6 +169,41 @@ struct ItemDetailView: View {
 }
 
 #if os(iOS)
+/// A full-screen, pinch-to-zoom / drag-to-pan image on a black field. Double-tap
+/// resets. Used by the "Full Screen" viewer.
+struct ZoomableImage: View {
+    let image: Image
+    @State private var scale: CGFloat = 1
+    @State private var offset: CGSize = .zero
+    @State private var lastOffset: CGSize = .zero
+
+    var body: some View {
+        image
+            .resizable()
+            .scaledToFit()
+            .scaleEffect(scale)
+            .offset(offset)
+            .gesture(
+                SimultaneousGesture(
+                    MagnificationGesture()
+                        .onChanged { scale = max(1, $0) }
+                        .onEnded { _ in withAnimation { scale = min(max(scale, 1), 6); if scale == 1 { offset = .zero; lastOffset = .zero } } },
+                    DragGesture()
+                        .onChanged { g in guard scale > 1 else { return }
+                            offset = CGSize(width: lastOffset.width + g.translation.width,
+                                            height: lastOffset.height + g.translation.height) }
+                        .onEnded { _ in lastOffset = offset }
+                )
+            )
+            .onTapGesture(count: 2) {
+                withAnimation { scale = scale > 1 ? 1 : 2; offset = .zero; lastOffset = .zero }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+            .ignoresSafeArea()
+    }
+}
+
 /// Minimal Quick Look host for a single decrypted file in the preview cache.
 struct QuickLookView: UIViewControllerRepresentable {
     let url: URL

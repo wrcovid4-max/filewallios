@@ -9,7 +9,11 @@ import FileWallKit
 struct SecurityView: View {
     @EnvironmentObject private var app: AppState
     @StateObject private var auth = GoogleAuth.shared
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
 
+    @AppStorage(Pref.iPadNav) private var navRaw = NavStyle.sidebar.rawValue
     @AppStorage(Pref.appearance) private var appearanceRaw = Appearance.system.rawValue
     @AppStorage(Pref.autoLockSeconds) private var autoLockSeconds = Pref.defaultAutoLockSeconds
     @AppStorage(Pref.allowScreenshots) private var allowScreenshots = false
@@ -33,6 +37,7 @@ struct SecurityView: View {
     var body: some View {
         List {
             appearanceSection
+            navigationSection
             storageSection
             autoLockSection
             hiddenVaultSection
@@ -69,6 +74,32 @@ struct SecurityView: View {
                 ForEach(Appearance.allCases) { Text($0.title).tag($0.rawValue) }
             }
             .pickerStyle(.segmented)
+        }
+    }
+
+    // MARK: Navigation (iPad / Mac only — the big canvas)
+
+    @ViewBuilder
+    private var navigationSection: some View {
+        #if os(iOS)
+        if horizontalSizeClass == .regular {
+            navigationPicker
+        }
+        #else
+        navigationPicker
+        #endif
+    }
+
+    private var navigationPicker: some View {
+        Section {
+            Picker("Section switcher", selection: $navRaw) {
+                ForEach(NavStyle.allCases) { Label($0.title, systemImage: $0.symbol).tag($0.rawValue) }
+            }
+            .pickerStyle(.inline)
+        } header: {
+            Text("Navigation")
+        } footer: {
+            Text("Show the Vault / Hidden / Security switcher in a left sidebar (with your folders under it) or as a centered bar across the top.")
         }
     }
 

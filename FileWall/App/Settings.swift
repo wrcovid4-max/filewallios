@@ -10,11 +10,22 @@ enum Pref {
     static let documentPreviews = "pref.documentPreviews"
     static let dailyBackup = "pref.dailyBackup"
     static let autoLockSeconds = "pref.autoLockSeconds"   // 0 == never
+    static let iPadNav = "pref.iPadNav"                    // sidebar vs top bar (iPad/Mac)
 
     // Defaults, applied where a key has never been written.
     static let defaultWatchSync = true
     static let defaultDocumentPreviews = true
     static let defaultAutoLockSeconds = 15
+}
+
+/// On the big (iPad / Mac) canvas the section switcher can live in a left
+/// **sidebar** (with the vault's folders listed under it) or as a **top-centered**
+/// segmented bar. Selectable in Security, or with the toolbar toggle.
+enum NavStyle: String, CaseIterable, Identifiable {
+    case sidebar, topBar
+    var id: String { rawValue }
+    var title: String { self == .sidebar ? "Sidebar" : "Top Bar" }
+    var symbol: String { self == .sidebar ? "sidebar.left" : "rectangle.topthird.inset.filled" }
 }
 
 /// Light / Dark / follow-system, applied at the app root via `preferredColorScheme`.

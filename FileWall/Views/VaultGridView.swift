@@ -246,7 +246,7 @@ struct VaultGridView: View {
         NavigationLink { destination() } label: {
             HStack(spacing: 8) {
                 Image(systemName: icon)
-                Text(title).font(.caption).lineLimit(1)
+                Text(title).font(.caption).lineLimit(1).minimumScaleFactor(0.7).fixedSize(horizontal: false, vertical: true)
                 Spacer(minLength: 4)
                 Text("\(count)").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
             }
