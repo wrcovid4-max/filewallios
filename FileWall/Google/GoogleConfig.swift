@@ -12,10 +12,15 @@ enum GoogleConfig {
     /// constant below. Set ONE of them to your console value; keep the constant as
     /// a fallback so a fresh checkout is obviously unconfigured rather than
     /// silently wrong.
+    /// The iOS OAuth client ID. Baked in as the default (client IDs are public,
+    /// not secrets — Google ships this same string in every app's
+    /// GoogleService-Info.plist), overridable via the Info.plist key
+    /// `GoogleOAuthClientID` if you ever rotate it. Registered against bundle ID
+    /// `com.filewall.FileWall`.
     static var clientID: String {
         (Bundle.main.object(forInfoDictionaryKey: "GoogleOAuthClientID") as? String)
             .flatMap { $0.isEmpty ? nil : $0 }
-            ?? "REPLACE_WITH_IOS_CLIENT_ID.apps.googleusercontent.com"
+            ?? "331932361656-40gb7jj90e235nfib3d5j4l8caun7o2q.apps.googleusercontent.com"
     }
 
     /// The reversed client ID, e.g. `com.googleusercontent.apps.NNN-xxxx`. This is
