@@ -15,8 +15,8 @@ struct FileTile: View {
     @State private var thumbnail: Image?
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            RoundedRectangle(cornerRadius: 10).fill(Color.gray.opacity(0.15))
+        ZStack {
+            RoundedRectangle(cornerRadius: 12).fill(Color.secondary.opacity(0.12))
 
             if let thumbnail {
                 thumbnail
@@ -24,20 +24,33 @@ struct FileTile: View {
                     .scaledToFill()
             } else {
                 Image(systemName: glyph)
-                    .font(.title)
+                    .font(.system(size: 30))
                     .foregroundStyle(.secondary)
             }
 
-            Text(item.name)
-                .font(.caption2)
-                .lineLimit(1)
-                .padding(.horizontal, 6)
-                .padding(.vertical, 4)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(.ultraThinMaterial)
+            // Name over a bottom scrim, truncated in the MIDDLE so a long name
+            // keeps its start and extension ("photo-17…490.jpg") rather than
+            // chopping the front off.
+            VStack {
+                Spacer()
+                Text(item.name)
+                    .font(.caption2)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        LinearGradient(colors: [.black.opacity(0), .black.opacity(0.55)],
+                                       startPoint: .top, endPoint: .bottom)
+                    )
+            }
         }
-        .frame(height: 110)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        // Square tiles sized by the grid column — no fixed height that clips.
+        .aspectRatio(1, contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .contentShape(RoundedRectangle(cornerRadius: 12))
         .task { await loadThumbnail() }
     }
 
