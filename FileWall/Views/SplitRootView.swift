@@ -57,19 +57,19 @@ struct SplitRootView: View {
     }
 
     private var sidebar: some View {
+        // A flat list (no Sections) so the sidebar style doesn't add collapse
+        // chevrons. Folders sit indented beneath Vault.
         List(selection: $sidebarSelection) {
-            SwiftUI.Section {
-                Label("Vault", systemImage: "lock.rectangle.stack").tag(SidebarItem.section(.vault))
-                ForEach(folders) { f in
-                    Label(f.name, systemImage: "folder.fill")
-                        .tag(SidebarItem.folder(f.id))
-                }
+            Label("Vault", systemImage: "lock.rectangle.stack").tag(SidebarItem.section(.vault))
+            ForEach(folders) { f in
+                Label(f.name, systemImage: "folder.fill")
+                    .tag(SidebarItem.folder(f.id))
+                    .padding(.leading, 16)
             }
-            SwiftUI.Section {
-                Label("Hidden", systemImage: "eye.slash").tag(SidebarItem.section(.hidden))
-                Label("Security", systemImage: "shield.lefthalf.filled").tag(SidebarItem.section(.security))
-            }
+            Label("Hidden", systemImage: "eye.slash").tag(SidebarItem.section(.hidden))
+            Label("Security", systemImage: "shield.lefthalf.filled").tag(SidebarItem.section(.security))
         }
+        .listStyle(.sidebar)
         .navigationTitle("FileWall")
         .toolbar { ToolbarItem(placement: .primaryAction) { layoutToggle } }
     }
