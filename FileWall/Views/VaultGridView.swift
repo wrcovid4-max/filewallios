@@ -40,18 +40,19 @@ struct VaultGridView: View {
     }
 
     var body: some View {
-        ScrollView {
-            if !folders.isEmpty { folderChips }
+        VStack(spacing: 0) {
+            ScrollView {
+                if !folders.isEmpty { folderChips }
 
-            LazyVGrid(columns: columns, spacing: 8) {
-                ForEach(filteredItems) { item in
-                    tile(for: item)
-                        .contextMenu { liveActions(for: item) }
+                LazyVGrid(columns: columns, spacing: 8) {
+                    ForEach(filteredItems) { item in
+                        tile(for: item)
+                            .contextMenu { liveActions(for: item) }
+                    }
                 }
+                .padding(8)
             }
-            .padding(8)
-
-            destinations
+            destinationsFooter   // pinned to the bottom; the grid scrolls above it
         }
         .navigationTitle(side == .hidden ? "Hidden" : "Vault")
         .searchable(text: $searchText, prompt: "Search by name")
@@ -68,7 +69,14 @@ struct VaultGridView: View {
         .alert("Rename", isPresented: Binding(get: { renameTarget != nil }, set: { if !$0 { renameTarget = nil } })) {
             TextField("Name", text: $renameText)
             Button("Cancel", role: .cancel) { renameTarget = nil }
-            Button("Save") { Task { await commitRename() } }
+            // Capture the target and text *synchronously* — the alert's dismissal
+            // clears renameTarget, so reading it later inside the Task would find
+            // nil and silently skip the rename.
+            Button("Save") {
+                guard let target = renameTarget else { return }
+                let newName = renameText.trimmingCharacters(in: .whitespacesAndNewlines)
+                Task { await commitRename(target: target, newName: newName) }
+            }
         }
         .sheet(item: $moveTarget) { target in
             MoveSheet(folders: folders, currentFolder: target.folderID) { destination in
@@ -137,30 +145,43 @@ struct VaultGridView: View {
         .buttonStyle(.plain)
     }
 
-    private var destinations: some View {
-        VStack(spacing: 8) {
-            NavigationLink {
-                StateListView(side: side, state: .archived)
-            } label: { destinationRow(icon: "archivebox", title: "Archive", count: archiveCount) }
-
-            NavigationLink {
-                StateListView(side: side, state: .trashed)
-            } label: { destinationRow(icon: "trash", title: "Recently Deleted", count: trashCount) }
+    /// Pinned footer: Archive and Recently Deleted, always at the very bottom
+    /// (they don't scroll with the grid). Compact side-by-side cards over a bar
+    /// so they read as a fixed dock.
+    private var destinationsFooter: some View {
+        VStack(spacing: 0) {
+            Divider()
+            HStack(spacing: 10) {
+                footerCard(icon: "archivebox", title: "Archive", count: archiveCount) {
+                    StateListView(side: side, state: .archived)
+                }
+                footerCard(icon: "trash", title: "Recently Deleted", count: trashCount) {
+                    StateListView(side: side, state: .trashed)
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
         }
-        .padding()
+        .background(.bar)
     }
 
-    private func destinationRow(icon: String, title: String, count: Int) -> some View {
-        HStack {
-            Image(systemName: icon)
-            Text(title)
-            Spacer()
-            Text("\(count)").foregroundStyle(.secondary)
-            Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
+    private func footerCard<Destination: View>(icon: String, title: String, count: Int,
+                                               @ViewBuilder destination: @escaping () -> Destination) -> some View {
+        NavigationLink {
+            destination()
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                Text(title).font(.caption).lineLimit(1)
+                Spacer(minLength: 4)
+                Text("\(count)").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .frame(maxWidth: .infinity)
+            .background(Color.secondary.opacity(0.12))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .padding()
-        .background(Color.gray.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
         .buttonStyle(.plain)
     }
 
@@ -231,12 +252,10 @@ struct VaultGridView: View {
         await load()
     }
 
-    private func commitRename() async {
-        guard let target = renameTarget else { return }
-        let name = renameText.trimmingCharacters(in: .whitespacesAndNewlines)
+    private func commitRename(target: VaultFileSnapshot, newName: String) async {
         renameTarget = nil
-        guard !name.isEmpty else { return }
-        try? await VaultService.shared.vaultStore().rename(id: target.id, to: name)
+        guard !newName.isEmpty else { return }
+        try? await VaultService.shared.vaultStore().rename(id: target.id, to: newName)
         await load()
     }
 
