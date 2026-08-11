@@ -1,5 +1,7 @@
 import Foundation
+#if os(iOS)
 import BackgroundTasks
+#endif
 
 /// Schedules and runs unattended Drive backups via `BGProcessingTaskRequest`.
 ///
@@ -17,6 +19,7 @@ enum BackgroundBackup {
     /// Must also be listed in Info.plist under `BGTaskSchedulerPermittedIdentifiers`.
     static let taskIdentifier = "com.filewall.autobackup"
 
+#if os(iOS)
     /// Call once, before the app finishes launching (e.g. in the App initializer /
     /// `application(_:didFinishLaunchingWithOptions:)`).
     static func registerHandler() {
@@ -49,4 +52,11 @@ enum BackgroundBackup {
         }
         task.expirationHandler = { work.cancel() }
     }
+#else
+    // macOS has no BGTaskScheduler. Scheduled background backup is iOS-only for
+    // now; on macOS the user runs backups manually (a future macOS build could
+    // use NSBackgroundActivityScheduler). No-ops keep call sites cross-platform.
+    static func registerHandler() {}
+    static func schedule(after interval: TimeInterval = 6 * 60 * 60) {}
+#endif
 }

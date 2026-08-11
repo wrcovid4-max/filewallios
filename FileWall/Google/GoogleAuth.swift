@@ -1,7 +1,11 @@
 import Foundation
 import AuthenticationServices
 import CryptoKit
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 /// Native Google OAuth for an iOS "installed app" client — **no GoogleSignIn SDK,
 /// no AppAuth**. `ASWebAuthenticationSession` + PKCE is Apple's dependency-free,
@@ -223,13 +227,19 @@ final class GoogleAuth: NSObject, ObservableObject {
 
 extension GoogleAuth: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        // The key window of the active scene. Sign-in only happens with the app
-        // foregrounded (the "Sign in to Google" path opens the app), so a window
-        // exists.
+        // ASPresentationAnchor is UIWindow on iOS, NSWindow on macOS. Sign-in only
+        // happens with the app foregrounded (the "Sign in to Google" path opens
+        // the app), so a window exists on both.
+        #if canImport(UIKit)
         let scene = UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .first { $0.activationState == .foregroundActive }
         return scene?.keyWindow ?? ASPresentationAnchor()
+        #elseif canImport(AppKit)
+        return NSApplication.shared.keyWindow ?? NSApplication.shared.windows.first ?? ASPresentationAnchor()
+        #else
+        return ASPresentationAnchor()
+        #endif
     }
 }
 
