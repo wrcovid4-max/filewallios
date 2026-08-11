@@ -24,7 +24,7 @@ extension VaultService {
     func importData(_ data: Data, name: String, mimeType: String,
                     folderID: UUID?, side: VaultSideSelector) async throws -> VaultFileSnapshot {
         let id = UUID()
-        let key = try await keyStore.vaultKey(for: side)
+        let key = try await keyStore.vaultKey(for: side.keySide)
         let blob = try ChunkedCipher().encrypt(data, using: key)
 
         try FileManager.default.createDirectory(at: AppEnvironment.vaultDirectory,
@@ -41,7 +41,7 @@ extension VaultService {
 
     /// Decrypt a file to memory (used for image display — plaintext never hits disk).
     func decryptedData(for id: UUID, side: VaultSideSelector) async throws -> Data {
-        let key = try await keyStore.vaultKey(for: side)
+        let key = try await keyStore.vaultKey(for: side.keySide)
         let url = AppEnvironment.vaultDirectory.appendingPathComponent(id.uuidString)
         let blob = try Data(contentsOf: url, options: .mappedIfSafe)
         return try ChunkedCipher().decrypt(blob, using: key)
@@ -51,7 +51,7 @@ extension VaultService {
     /// PDFKit of non-image formats). The caller is responsible for wiping via
     /// `wipePreviewCache()` on lock/background.
     func decryptToPreviewCache(id: UUID, name: String, side: VaultSideSelector) async throws -> URL {
-        let key = try await keyStore.vaultKey(for: side)
+        let key = try await keyStore.vaultKey(for: side.keySide)
         try FileManager.default.createDirectory(at: Self.previewCacheDirectory,
                                                 withIntermediateDirectories: true)
         let source = AppEnvironment.vaultDirectory.appendingPathComponent(id.uuidString)

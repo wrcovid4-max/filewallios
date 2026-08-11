@@ -45,6 +45,11 @@ public enum VaultSideSelector: Sendable {
     case hidden
 
     var isHidden: Bool { self == .hidden }
+
+    /// The matching `VaultKeyStore` side. The key store uses its own `VaultSide`
+    /// enum (it predates this selector); this bridges the two so callers don't
+    /// hand-roll the conversion.
+    public var keySide: VaultSide { isHidden ? .hidden : .standard }
 }
 
 /// The lifecycle state of a file within one vault side. Modelled as a computed
