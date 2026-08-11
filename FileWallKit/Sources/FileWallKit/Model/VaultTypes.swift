@@ -4,7 +4,7 @@ import Foundation
 /// to the App Intents `AppEnum` and the storage breakdown. Kept deliberately
 /// small — the vault sorts files into buckets a user reasons about, not MIME
 /// types.
-public enum VaultCategory: String, CaseIterable, Sendable {
+public enum VaultCategory: String, CaseIterable, Sendable, Codable {
     case photo
     case video
     case document
