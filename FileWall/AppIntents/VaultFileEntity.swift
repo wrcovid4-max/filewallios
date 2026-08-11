@@ -13,11 +13,12 @@ import FileWallKit
 /// *what can become an entity*, not in filtering after the fact.
 struct VaultFileEntity: AppEntity, Identifiable {
 
-    // Xcode 14.2 / iOS 16.0 SDK: the AppEntity requirement is `typeDisplayName`.
-    // `typeDisplayRepresentation` was added in a later 16.x SDK (16.4). If you
-    // move to Xcode 14.3+ and the compiler wants the newer form, swap this for:
-    //   static var typeDisplayRepresentation: TypeDisplayRepresentation { "Vault File" }
-    static var typeDisplayName: LocalizedStringResource = "Vault File"
+    // The Xcode 14.2 SDK's AppEntity requires `typeDisplayRepresentation`
+    // (conformance to TypeDisplayRepresentable) — confirmed by the compiler, which
+    // rejected `typeDisplayName`. Same explicit-initializer form as the AppEnums.
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        TypeDisplayRepresentation(name: "Vault File")
+    }
 
     static var defaultQuery = VaultFileQuery()
 
