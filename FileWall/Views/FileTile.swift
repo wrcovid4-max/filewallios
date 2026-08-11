@@ -15,24 +15,21 @@ struct FileTile: View {
     @State private var thumbnail: Image?
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 12).fill(Color.secondary.opacity(0.12))
-
-            if let thumbnail {
-                thumbnail
-                    .resizable()
-                    .scaledToFill()
-            } else {
-                Image(systemName: glyph)
-                    .font(.system(size: 30))
-                    .foregroundStyle(.secondary)
+        // A flexible base pinned to a 1:1 square by the grid column width. The
+        // image and name are overlays clipped to that square, so a wide photo
+        // fills its own tile and never bleeds into neighbours.
+        Color.secondary.opacity(0.12)
+            .aspectRatio(1, contentMode: .fit)
+            .overlay {
+                if let thumbnail {
+                    thumbnail.resizable().scaledToFill()
+                } else {
+                    Image(systemName: glyph)
+                        .font(.system(size: 30))
+                        .foregroundStyle(.secondary)
+                }
             }
-
-            // Name over a bottom scrim, truncated in the MIDDLE so a long name
-            // keeps its start and extension ("photo-17…490.jpg") rather than
-            // chopping the front off.
-            VStack {
-                Spacer()
+            .overlay(alignment: .bottom) {
                 Text(item.name)
                     .font(.caption2)
                     .lineLimit(1)
@@ -42,16 +39,13 @@ struct FileTile: View {
                     .padding(.vertical, 5)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(
-                        LinearGradient(colors: [.black.opacity(0), .black.opacity(0.55)],
+                        LinearGradient(colors: [.black.opacity(0), .black.opacity(0.6)],
                                        startPoint: .top, endPoint: .bottom)
                     )
             }
-        }
-        // Square tiles sized by the grid column — no fixed height that clips.
-        .aspectRatio(1, contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .contentShape(RoundedRectangle(cornerRadius: 12))
-        .task { await loadThumbnail() }
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .contentShape(RoundedRectangle(cornerRadius: 12))
+            .task { await loadThumbnail() }
     }
 
     private var glyph: String {

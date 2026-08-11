@@ -137,12 +137,12 @@ struct SecurityView: View {
     private var privacySection: some View {
         Section {
             Toggle("Allow Screenshots", isOn: $allowScreenshots)
-            Toggle("Sync to Wear OS", isOn: $watchSync)
+            Toggle("Sync to Apple Watch", isOn: $watchSync)
             Toggle("Document Previews", isOn: $documentPreviews)
         } header: {
             Text("Privacy")
         } footer: {
-            Text("Screenshots off keeps vault content out of the app-switcher preview and screen recordings. Wear OS sync mirrors only non-hidden files to the watch. Document Previews render a PDF’s first page on its tile.")
+            Text("Screenshots off keeps vault content out of the app-switcher preview and screen recordings. Apple Watch sync mirrors only non-hidden files to the watch. Document Previews render a PDF’s first page on its tile.")
         }
     }
 
