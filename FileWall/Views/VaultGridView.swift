@@ -19,6 +19,9 @@ struct VaultGridView: View {
     @State private var archiveCount = 0
     @State private var trashCount = 0
     @State private var selectedFolder: UUID?
+    @State private var searchText = ""
+    @State private var categoryFilter: VaultCategory?
+    @State private var density: GridDensity = .comfortable
 
     // Import
     @State private var photoPicks: [PhotosPickerItem] = []
@@ -32,7 +35,9 @@ struct VaultGridView: View {
     @State private var showNewFolder = false
     @State private var newFolderName = ""
 
-    private let columns = [GridItem(.adaptive(minimum: 100), spacing: 8)]
+    private var columns: [GridItem] {
+        [GridItem(.adaptive(minimum: density.minimum), spacing: 8)]
+    }
 
     var body: some View {
         ScrollView {
@@ -49,6 +54,7 @@ struct VaultGridView: View {
             destinations
         }
         .navigationTitle(side == .hidden ? "Hidden" : "Vault")
+        .searchable(text: $searchText, prompt: "Search by name")
         .toolbar { toolbarContent }
         .photosPicker(isPresented: $showPhotoPicker, selection: $photoPicks, matching: .images)
         .task { await load() }
@@ -101,8 +107,11 @@ struct VaultGridView: View {
     }
 
     private var filteredItems: [VaultFileSnapshot] {
-        guard let selectedFolder else { return items }
-        return items.filter { $0.folderID == selectedFolder }
+        items.filter { item in
+            (selectedFolder == nil || item.folderID == selectedFolder)
+                && (categoryFilter == nil || item.category == categoryFilter)
+                && (searchText.isEmpty || item.name.localizedCaseInsensitiveContains(searchText))
+        }
     }
 
     private var folderChips: some View {
@@ -157,6 +166,23 @@ struct VaultGridView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) {
+            Menu {
+                Picker("Type", selection: $categoryFilter) {
+                    Text("All Types").tag(VaultCategory?.none)
+                    ForEach(VaultCategory.allCases, id: \.self) { category in
+                        Text(category.rawValue.capitalized).tag(VaultCategory?.some(category))
+                    }
+                }
+                Picker("Layout", selection: $density) {
+                    ForEach(GridDensity.allCases, id: \.self) { d in
+                        Label(d.title, systemImage: d.symbol).tag(d)
+                    }
+                }
+            } label: {
+                Image(systemName: categoryFilter == nil ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill")
+            }
+        }
         ToolbarItem(placement: .primaryAction) {
             Menu {
                 Button { showPhotoPicker = true } label: { Label("Photos", systemImage: "photo") }
@@ -247,6 +273,33 @@ struct VaultGridView: View {
                                                           folderID: selectedFolder, side: side)
         }
         await load()
+    }
+}
+
+/// Grid tile density — the "different grid view options".
+enum GridDensity: String, CaseIterable, Hashable {
+    case compact, comfortable, large
+
+    var minimum: CGFloat {
+        switch self {
+        case .compact: return 78
+        case .comfortable: return 108
+        case .large: return 156
+        }
+    }
+    var title: String {
+        switch self {
+        case .compact: return "Compact"
+        case .comfortable: return "Comfortable"
+        case .large: return "Large"
+        }
+    }
+    var symbol: String {
+        switch self {
+        case .compact: return "square.grid.4x3.fill"
+        case .comfortable: return "square.grid.3x3.fill"
+        case .large: return "square.grid.2x2.fill"
+        }
     }
 }
 

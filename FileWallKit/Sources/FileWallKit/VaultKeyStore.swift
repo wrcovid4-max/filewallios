@@ -65,6 +65,15 @@ public actor VaultKeyStore {
     /// prompt (that is where `.biometryCurrentSet` bites), so callers should only
     /// invoke this after the user has asked to enter the hidden vault.
     public func vaultKey(for side: VaultSide) throws -> SymmetricKey {
+        // Devices without a Secure Enclave — notably the iOS Simulator on Intel
+        // Macs — can't wrap the key in hardware. Fall back to storing the raw
+        // vault key directly in the Keychain (still ThisDeviceOnly). This is a
+        // development/compatibility path and is less hardened than SE wrapping; on
+        // real hardware `SecureEnclave.isAvailable` is true and the wrapped path
+        // below is used.
+        guard SecureEnclave.isAvailable else {
+            return try directVaultKey(for: side)
+        }
         if let wrapped = try loadWrappedKey(for: side) {
             let enclaveKey = try loadEnclaveKey(for: side)
             return try unwrap(wrapped, using: enclaveKey)
@@ -79,6 +88,18 @@ public actor VaultKeyStore {
     public func destroyKey(for side: VaultSide) throws {
         try deleteKeychainItem(account: wrappedAccount(side))
         try deleteKeychainItem(account: enclaveAccount(side))
+        try deleteKeychainItem(account: directAccount(side))
+    }
+
+    /// Secure-Enclave-free fallback: the raw 256-bit key straight in the Keychain.
+    private func directVaultKey(for side: VaultSide) throws -> SymmetricKey {
+        if let raw = try loadKeychainItem(account: directAccount(side)) {
+            return SymmetricKey(data: raw)
+        }
+        let key = SymmetricKey(size: .bits256)
+        let raw = key.withUnsafeBytes { Data($0) }
+        try storeKeychainItem(account: directAccount(side), data: raw, side: side)
+        return key
     }
 
     // MARK: Create / wrap
@@ -186,38 +207,54 @@ public actor VaultKeyStore {
 
     private func wrappedAccount(_ side: VaultSide) -> String { "wrapped.\(side.rawValue)" }
     private func enclaveAccount(_ side: VaultSide) -> String { "enclave.\(side.rawValue)" }
+    private func directAccount(_ side: VaultSide) -> String { "directkey.\(side.rawValue)" }
 
-    private func baseQuery(account: String) -> [String: Any] {
-        [
+    private func baseQuery(account: String, includeAccessGroup: Bool) -> [String: Any] {
+        var q: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: account,
-            kSecAttrAccessGroup as String: accessGroup
+            kSecAttrAccount as String: account
         ]
+        // The access group requires the Keychain Sharing entitlement. When it is
+        // absent (e.g. a bare simulator run), the ops below retry without it.
+        if includeAccessGroup { q[kSecAttrAccessGroup as String] = accessGroup }
+        return q
     }
 
     private func storeKeychainItem(account: String, data: Data, side: VaultSide) throws {
         try deleteKeychainItem(account: account) // idempotent create-or-replace
-        var attrs = baseQuery(account: account)
-        attrs[kSecValueData as String] = data
-        attrs[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-        let status = SecItemAdd(attrs as CFDictionary, nil)
+        func add(_ withGroup: Bool) -> OSStatus {
+            var attrs = baseQuery(account: account, includeAccessGroup: withGroup)
+            attrs[kSecValueData as String] = data
+            attrs[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            return SecItemAdd(attrs as CFDictionary, nil)
+        }
+        var status = add(true)
+        if status == errSecMissingEntitlement { status = add(false) }
         guard status == errSecSuccess else { throw CryptoError.keychain(status) }
     }
 
     private func loadKeychainItem(account: String) throws -> Data? {
-        var query = baseQuery(account: account)
-        query[kSecReturnData as String] = true
-        query[kSecMatchLimit as String] = kSecMatchLimitOne
-        var out: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &out)
+        func copy(_ withGroup: Bool) -> (OSStatus, Data?) {
+            var query = baseQuery(account: account, includeAccessGroup: withGroup)
+            query[kSecReturnData as String] = true
+            query[kSecMatchLimit as String] = kSecMatchLimitOne
+            var out: CFTypeRef?
+            let status = SecItemCopyMatching(query as CFDictionary, &out)
+            return (status, out as? Data)
+        }
+        var (status, data) = copy(true)
+        if status == errSecMissingEntitlement { (status, data) = copy(false) }
         if status == errSecItemNotFound { return nil }
         guard status == errSecSuccess else { throw CryptoError.keychain(status) }
-        return out as? Data
+        return data
     }
 
     private func deleteKeychainItem(account: String) throws {
-        let status = SecItemDelete(baseQuery(account: account) as CFDictionary)
+        var status = SecItemDelete(baseQuery(account: account, includeAccessGroup: true) as CFDictionary)
+        if status == errSecMissingEntitlement {
+            status = SecItemDelete(baseQuery(account: account, includeAccessGroup: false) as CFDictionary)
+        }
         guard status == errSecSuccess || status == errSecItemNotFound else {
             throw CryptoError.keychain(status)
         }
