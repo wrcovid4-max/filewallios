@@ -13,41 +13,40 @@ struct FolderTile: View {
     private var color: Color { FolderPalette.color(folder.colorIndex) }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            RoundedRectangle(cornerRadius: 12).fill(color.opacity(0.18))
-
-            if let cover {
-                cover.resizable().scaledToFill()
-            } else {
-                Image(systemName: "folder.fill")
-                    .font(.system(size: 44))
-                    .foregroundStyle(color)
+        // Square base; the folder glyph (or cover) fills it CENTERED, and the
+        // name sits in a bottom bar as an overlay so the two never collide.
+        color.opacity(0.18)
+            .aspectRatio(1, contentMode: .fit)
+            .overlay {
+                if let cover {
+                    cover.resizable().scaledToFill()
+                } else {
+                    Image(systemName: "folder.fill")
+                        .font(.system(size: 46))
+                        .foregroundStyle(color)
+                }
             }
-
-            HStack(spacing: 4) {
-                Image(systemName: "folder.fill")
-                    .font(.caption2)
-                Text(folder.name)
-                    .font(.caption).lineLimit(1).truncationMode(.middle)
-                Spacer(minLength: 2)
-                Text("\(folder.liveItemCount)")
-                    .font(.caption2.weight(.semibold))
+            .overlay(alignment: .bottom) {
+                HStack(spacing: 4) {
+                    Image(systemName: "folder.fill").font(.caption2)
+                    Text(folder.name).font(.caption).lineLimit(1).truncationMode(.middle)
+                    Spacer(minLength: 2)
+                    Text("\(folder.liveItemCount)").font(.caption2.weight(.semibold))
+                }
+                .padding(.horizontal, 6)
+                .padding(.vertical, 5)
+                .frame(maxWidth: .infinity)
+                .foregroundStyle(cover == nil ? Color.primary : .white)
+                .background(
+                    cover == nil
+                        ? AnyShapeStyle(.ultraThinMaterial)
+                        : AnyShapeStyle(LinearGradient(colors: [.black.opacity(0), .black.opacity(0.65)],
+                                                       startPoint: .top, endPoint: .bottom))
+                )
             }
-            .padding(.horizontal, 6)
-            .padding(.vertical, 5)
-            .frame(maxWidth: .infinity)
-            .foregroundStyle(cover == nil ? Color.primary : .white)
-            .background(
-                cover == nil
-                    ? AnyShapeStyle(.clear)
-                    : AnyShapeStyle(LinearGradient(colors: [.black.opacity(0), .black.opacity(0.6)],
-                                                   startPoint: .top, endPoint: .bottom))
-            )
-        }
-        .aspectRatio(1, contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .contentShape(RoundedRectangle(cornerRadius: 12))
-        .task { await loadCover() }
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .contentShape(RoundedRectangle(cornerRadius: 12))
+            .task { await loadCover() }
     }
 
     private func loadCover() async {

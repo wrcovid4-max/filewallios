@@ -42,6 +42,11 @@ struct VaultGridView: View {
     @State private var folderRenameText = ""
     @State private var folderDeleteTarget: VaultFolderSnapshot?
 
+    // Bulk selection
+    @State private var isSelecting = false
+    @State private var selectedIDs: Set<UUID> = []
+    @State private var showBatchMove = false
+
     private var isRoot: Bool { folder == nil }
     private var columns: [GridItem] { [GridItem(.adaptive(minimum: density.minimum), spacing: 8)] }
     private var navTitle: String { folder?.name ?? (side == .hidden ? "Hidden" : "Vault") }
@@ -52,7 +57,11 @@ struct VaultGridView: View {
                 if isRoot && !folders.isEmpty { foldersSection }
                 filesSection
             }
-            if isRoot { destinationsFooter } // pinned dock at the very bottom
+            if isSelecting {
+                selectionBar
+            } else if isRoot {
+                destinationsFooter   // pinned dock at the very bottom
+            }
         }
         .navigationTitle(navTitle)
         .navigationBarTitleDisplayMode(isRoot ? .large : .inline)
@@ -70,6 +79,11 @@ struct VaultGridView: View {
             }
         }
         .sheet(item: $sharePayload) { FileShareSheet(url: $0.url) }
+        .sheet(isPresented: $showBatchMove) {
+            MoveSheet(folders: rootFolders, currentFolder: nil) { destination in
+                Task { await batchMove(to: destination) }
+            }
+        }
         .alert("Rename", isPresented: Binding(get: { renameTarget != nil }, set: { if !$0 { renameTarget = nil } })) {
             TextField("Name", text: $renameText)
             Button("Cancel", role: .cancel) { renameTarget = nil }
@@ -138,7 +152,21 @@ struct VaultGridView: View {
 
     @ViewBuilder
     private func tile(for item: VaultFileSnapshot) -> some View {
-        if let selection {
+        if isSelecting {
+            let picked = selectedIDs.contains(item.id)
+            Button { toggleSelect(item.id) } label: { FileTile(item: item, side: side) }
+                .buttonStyle(.plain)
+                .overlay(alignment: .topTrailing) {
+                    Image(systemName: picked ? "checkmark.circle.fill" : "circle")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white, picked ? Color.accentColor : Color.black.opacity(0.35))
+                        .font(.title3)
+                        .padding(5)
+                }
+                .overlay {
+                    if picked { RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor, lineWidth: 3) }
+                }
+        } else if let selection {
             Button { selection.wrappedValue = item } label: { FileTile(item: item, side: side) }
                 .buttonStyle(.plain)
                 .overlay {
@@ -149,6 +177,43 @@ struct VaultGridView: View {
         } else {
             NavigationLink { ItemDetailView(item: item, side: side) } label: { FileTile(item: item, side: side) }
                 .buttonStyle(.plain)
+        }
+    }
+
+    private func toggleSelect(_ id: UUID) {
+        if selectedIDs.contains(id) { selectedIDs.remove(id) } else { selectedIDs.insert(id) }
+    }
+
+    /// Batch actions on the selected files. On the standard side "Hide" moves them
+    /// into the hidden vault; on the hidden side the same button reads "Unhide"
+    /// and moves them back.
+    private var selectionBar: some View {
+        VStack(spacing: 0) {
+            Divider()
+            HStack(spacing: 20) {
+                Text("\(selectedIDs.count)").font(.footnote.weight(.semibold)).foregroundStyle(.secondary)
+                Spacer()
+                selectionButton(icon: side == .hidden ? "eye" : "eye.slash",
+                                title: side == .hidden ? "Unhide" : "Hide") {
+                    Task { await batchSetHidden(side != .hidden) }
+                }
+                selectionButton(icon: "folder", title: "Move") { showBatchMove = true }
+                selectionButton(icon: "archivebox", title: "Archive") { Task { await batchArchive() } }
+                selectionButton(icon: "trash", title: "Delete", role: .destructive) { Task { await batchDelete() } }
+            }
+            .padding(.horizontal, 16).padding(.vertical, 8)
+            .disabled(selectedIDs.isEmpty)
+        }
+        .background(.bar)
+    }
+
+    private func selectionButton(icon: String, title: String, role: ButtonRole? = nil,
+                                 action: @escaping () -> Void) -> some View {
+        Button(role: role, action: action) {
+            VStack(spacing: 2) {
+                Image(systemName: icon).font(.body)
+                Text(title).font(.caption2)
+            }
         }
     }
 
@@ -197,6 +262,12 @@ struct VaultGridView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button(isSelecting ? "Done" : "Select") {
+                isSelecting.toggle()
+                if !isSelecting { selectedIDs = [] }
+            }
+        }
         ToolbarItem(placement: .primaryAction) {
             Menu {
                 Picker("Type", selection: $categoryFilter) {
@@ -260,6 +331,31 @@ struct VaultGridView: View {
         try? await VaultService.shared.vaultStore().move(id: item.id, toFolder: folderID)
         moveTarget = nil; await load()
     }
+    // MARK: Batch
+
+    private func exitSelection() { isSelecting = false; selectedIDs = [] }
+
+    private func batchDelete() async {
+        guard let store = try? await VaultService.shared.vaultStore() else { return }
+        for id in selectedIDs { try? await store.trash(id: id) }
+        exitSelection(); await load()
+    }
+    private func batchArchive() async {
+        guard let store = try? await VaultService.shared.vaultStore() else { return }
+        for id in selectedIDs { try? await store.archive(id: id) }
+        exitSelection(); await load()
+    }
+    private func batchSetHidden(_ hidden: Bool) async {
+        guard let store = try? await VaultService.shared.vaultStore() else { return }
+        for id in selectedIDs { try? await store.setHidden(id: id, hidden) }
+        exitSelection(); await load()
+    }
+    private func batchMove(to folderID: UUID?) async {
+        guard let store = try? await VaultService.shared.vaultStore() else { return }
+        for id in selectedIDs { try? await store.move(id: id, toFolder: folderID) }
+        showBatchMove = false; exitSelection(); await load()
+    }
+
     private func share(_ item: VaultFileSnapshot) async {
         // Decrypt to the short-lived preview cache for the share sheet.
         if let url = try? await VaultService.shared.decryptToPreviewCache(id: item.id, name: item.name, side: side) {
