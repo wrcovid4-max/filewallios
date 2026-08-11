@@ -370,18 +370,25 @@ struct VaultGridView: View {
     private func commitFolderRename(target: VaultFolderSnapshot, newName: String) async {
         folderRenameTarget = nil
         guard !newName.isEmpty else { return }
-        try? await VaultService.shared.vaultStore().renameFolder(id: target.id, to: newName); await load()
+        try? await VaultService.shared.vaultStore().renameFolder(id: target.id, to: newName)
+        await load(); notifyFoldersChanged()
     }
     private func deleteFolder(_ target: VaultFolderSnapshot) async {
         folderDeleteTarget = nil
-        try? await VaultService.shared.vaultStore().deleteFolder(id: target.id); await load()
+        try? await VaultService.shared.vaultStore().deleteFolder(id: target.id)
+        await load(); notifyFoldersChanged()
     }
     private func createFolder() async {
         let name = newFolderName.trimmingCharacters(in: .whitespacesAndNewlines)
         newFolderName = ""
         guard !name.isEmpty else { return }
         _ = try? await VaultService.shared.vaultStore().createFolder(name: name, colorIndex: Int.random(in: 0..<10), side: side)
-        await load()
+        await load(); notifyFoldersChanged()
+    }
+
+    /// Let the iPad sidebar know its cached folder list is stale.
+    private func notifyFoldersChanged() {
+        NotificationCenter.default.post(name: .vaultFoldersDidChange, object: nil)
     }
     private func importPhotos(_ picks: [PhotosPickerItem]) async {
         for pick in picks {

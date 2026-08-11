@@ -1,5 +1,11 @@
 import SwiftUI
 
+extension Notification.Name {
+    /// Posted when a folder is created, renamed, or deleted so the iPad sidebar
+    /// (which caches the folder list) can refresh itself.
+    static let vaultFoldersDidChange = Notification.Name("vaultFoldersDidChange")
+}
+
 /// UserDefaults keys for the app's preferences. Centralised so `@AppStorage` in
 /// the views and direct `UserDefaults` reads in non-view code (PhoneWatchSession,
 /// AppState) use the exact same strings.

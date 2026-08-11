@@ -39,6 +39,9 @@ struct SplitRootView: View {
             }
         }
         .task { await loadFolders() }
+        .onReceive(NotificationCenter.default.publisher(for: .vaultFoldersDidChange)) { _ in
+            Task { await loadFolders() }
+        }
         .onChange(of: navStyle) { _ in syncSelections() }
         .onChange(of: sidebarSelection) { _ in selected = nil; section = derivedSection }
         .onChange(of: section) { _ in selected = nil }
