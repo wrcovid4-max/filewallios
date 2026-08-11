@@ -58,7 +58,7 @@ struct SecurityView: View {
     // MARK: Hidden vault
 
     private var hiddenVaultSection: some View {
-        Section("Hidden Vault") {
+        Section {
             Button(role: .destructive) {
                 app.lockHidden()
             } label: {
@@ -69,6 +69,8 @@ struct SecurityView: View {
             Toggle("Require biometrics only", isOn: Binding(
                 get: { app.biometricsOnly },
                 set: { app.biometricsOnly = $0 }))
+        } header: {
+            Text("Hidden Vault")
         } footer: {
             Text("With this off, Face ID or Touch ID falls back to your device passcode. With it on, only biometrics can unlock the hidden vault.")
         }
@@ -77,7 +79,7 @@ struct SecurityView: View {
     // MARK: Backup
 
     private var backupSection: some View {
-        Section("Cloud Backup & Sync") {
+        Section {
             if auth.isSignedIn {
                 LabeledContent("Signed in", value: auth.email ?? "Google")
 
@@ -102,6 +104,8 @@ struct SecurityView: View {
 
             if working { ProgressView() }
             if let backupStatus { Text(backupStatus).font(.footnote).foregroundStyle(.secondary) }
+        } header: {
+            Text("Cloud Backup & Sync")
         } footer: {
             Text("The backup is encrypted before it leaves your device and shares one file with the FileWall Android app. It's as safe as your Google account.")
         }
