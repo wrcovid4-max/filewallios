@@ -1,4 +1,5 @@
 import SwiftUI
+import FileWallKit
 
 /// The hidden vault. Gated by biometrics (with passcode fallback) every session;
 /// once unlocked it shows the same grid as the standard side, but for the hidden
@@ -7,9 +8,13 @@ struct HiddenView: View {
     @EnvironmentObject private var app: AppState
     @State private var failed = false
 
+    /// Passed through to the grid so the iPad split view can preview hidden items
+    /// in its detail column too.
+    var selection: Binding<VaultFileSnapshot?>? = nil
+
     var body: some View {
         if app.hiddenUnlocked {
-            VaultGridView(side: .hidden)
+            VaultGridView(side: .hidden, selection: selection)
         } else {
             lockedGate
         }

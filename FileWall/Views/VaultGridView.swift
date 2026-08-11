@@ -9,6 +9,11 @@ import FileWallKit
 struct VaultGridView: View {
     let side: VaultSideSelector
 
+    /// When provided (iPad/Mac split view), tapping a tile sets this selection and
+    /// the detail column previews it. When nil (iPhone), a tile pushes a
+    /// full-screen `ItemDetailView` instead.
+    var selection: Binding<VaultFileSnapshot?>? = nil
+
     @State private var items: [VaultFileSnapshot] = []
     @State private var folders: [VaultFolderSnapshot] = []
     @State private var archiveCount = 0
@@ -35,11 +40,8 @@ struct VaultGridView: View {
 
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(filteredItems) { item in
-                    NavigationLink { ItemDetailView(item: item, side: side) } label: {
-                        FileTile(item: item, side: side)
-                    }
-                    .buttonStyle(.plain)
-                    .contextMenu { liveActions(for: item) }
+                    tile(for: item)
+                        .contextMenu { liveActions(for: item) }
                 }
             }
             .padding(8)
@@ -75,6 +77,28 @@ struct VaultGridView: View {
     }
 
     // MARK: Pieces
+
+    /// A tile that either drives the split-view selection (iPad) or pushes a
+    /// detail screen (iPhone).
+    @ViewBuilder
+    private func tile(for item: VaultFileSnapshot) -> some View {
+        if let selection {
+            Button { selection.wrappedValue = item } label: {
+                FileTile(item: item, side: side)
+            }
+            .buttonStyle(.plain)
+            .overlay {
+                if selection.wrappedValue?.id == item.id {
+                    RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor, lineWidth: 3)
+                }
+            }
+        } else {
+            NavigationLink { ItemDetailView(item: item, side: side) } label: {
+                FileTile(item: item, side: side)
+            }
+            .buttonStyle(.plain)
+        }
+    }
 
     private var filteredItems: [VaultFileSnapshot] {
         guard let selectedFolder else { return items }
