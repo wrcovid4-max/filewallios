@@ -67,11 +67,13 @@ enum InteropCrypto {
             guard !input.isEmpty else { return Data() }
             var out = Data(count: input.count)
             var moved = 0
+            // Use the buffer's own count inside the closure; reading `out.count`
+            // there overlaps the exclusive access that withUnsafeMutableBytes holds.
             let status = out.withUnsafeMutableBytes { outBuf in
                 input.withUnsafeBytes { inBuf in
                     CCCryptorUpdate(cryptor,
                                     inBuf.baseAddress, input.count,
-                                    outBuf.baseAddress, out.count,
+                                    outBuf.baseAddress, outBuf.count,
                                     &moved)
                 }
             }
