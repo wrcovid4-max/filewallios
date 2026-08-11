@@ -379,6 +379,14 @@ public actor VaultStore {
         }
     }
 
+    public func renameFolder(id: UUID, to newName: String) async throws {
+        try await context.perform {
+            guard let folder = try self.folderObject(id) else { throw VaultError.notFound }
+            folder.name = newName
+            try self.context.save()
+        }
+    }
+
     /// Delete a folder without deleting its files (nullify rule). Its files fall
     /// back to "no folder".
     public func deleteFolder(id: UUID) async throws {

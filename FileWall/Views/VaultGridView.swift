@@ -3,22 +3,23 @@ import PhotosUI
 import UniformTypeIdentifiers
 import FileWallKit
 
-/// The live grid for one vault side: photos/videos/documents, an import button,
-/// folder filter chips, per-file actions, and the Archive / Recently Deleted
-/// destinations at the end.
+/// The live grid for one vault side. At the root it shows **folders** (openable
+/// tiles) then the loose files; opening a folder pushes another `VaultGridView`
+/// scoped to that folder. Per-file actions (Rename / Move / Share / Archive /
+/// Delete), an import button, and the pinned Archive / Recently Deleted footer.
 struct VaultGridView: View {
     let side: VaultSideSelector
 
-    /// When provided (iPad/Mac split view), tapping a tile sets this selection and
-    /// the detail column previews it. When nil (iPhone), a tile pushes a
-    /// full-screen `ItemDetailView` instead.
+    /// nil == the root of this side; non-nil == inside that folder.
+    var folder: VaultFolderSnapshot? = nil
+
+    /// iPad/Mac split view: tapping a file drives this selection instead of pushing.
     var selection: Binding<VaultFileSnapshot?>? = nil
 
     @State private var items: [VaultFileSnapshot] = []
     @State private var folders: [VaultFolderSnapshot] = []
     @State private var archiveCount = 0
     @State private var trashCount = 0
-    @State private var selectedFolder: UUID?
     @State private var searchText = ""
     @State private var categoryFilter: VaultCategory?
     @State private var density: GridDensity = .comfortable
@@ -28,60 +29,74 @@ struct VaultGridView: View {
     @State private var showPhotoPicker = false
     @State private var showFileImporter = false
 
-    // Per-file editing
+    // File editing
     @State private var renameTarget: VaultFileSnapshot?
     @State private var renameText = ""
     @State private var moveTarget: VaultFileSnapshot?
+    @State private var sharePayload: SharePayload?
+
+    // Folder editing
     @State private var showNewFolder = false
     @State private var newFolderName = ""
+    @State private var folderRenameTarget: VaultFolderSnapshot?
+    @State private var folderRenameText = ""
+    @State private var folderDeleteTarget: VaultFolderSnapshot?
 
-    private var columns: [GridItem] {
-        [GridItem(.adaptive(minimum: density.minimum), spacing: 8)]
-    }
+    private var isRoot: Bool { folder == nil }
+    private var columns: [GridItem] { [GridItem(.adaptive(minimum: density.minimum), spacing: 8)] }
+    private var navTitle: String { folder?.name ?? (side == .hidden ? "Hidden" : "Vault") }
 
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                if !folders.isEmpty { folderChips }
-
-                LazyVGrid(columns: columns, spacing: 8) {
-                    ForEach(filteredItems) { item in
-                        tile(for: item)
-                            .contextMenu { liveActions(for: item) }
-                    }
-                }
-                .padding(8)
+                if isRoot && !folders.isEmpty { foldersSection }
+                filesSection
             }
-            destinationsFooter   // pinned to the bottom; the grid scrolls above it
+            if isRoot { destinationsFooter } // pinned dock at the very bottom
         }
-        .navigationTitle(side == .hidden ? "Hidden" : "Vault")
+        .navigationTitle(navTitle)
+        .navigationBarTitleDisplayMode(isRoot ? .large : .inline)
         .searchable(text: $searchText, prompt: "Search by name")
         .toolbar { toolbarContent }
         .photosPicker(isPresented: $showPhotoPicker, selection: $photoPicks, matching: .images)
         .task { await load() }
         .refreshable { await load() }
         .onChange(of: photoPicks) { picks in Task { await importPhotos(picks) } }
-        .fileImporter(isPresented: $showFileImporter,
-                      allowedContentTypes: [.item],
-                      allowsMultipleSelection: true) { result in
-            Task { await importFiles(result) }
+        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.item],
+                      allowsMultipleSelection: true) { result in Task { await importFiles(result) } }
+        .sheet(item: $moveTarget) { target in
+            MoveSheet(folders: rootFolders, currentFolder: target.folderID) { destination in
+                Task { await move(target, to: destination) }
+            }
         }
+        .sheet(item: $sharePayload) { FileShareSheet(url: $0.url) }
         .alert("Rename", isPresented: Binding(get: { renameTarget != nil }, set: { if !$0 { renameTarget = nil } })) {
             TextField("Name", text: $renameText)
             Button("Cancel", role: .cancel) { renameTarget = nil }
-            // Capture the target and text *synchronously* — the alert's dismissal
-            // clears renameTarget, so reading it later inside the Task would find
-            // nil and silently skip the rename.
             Button("Save") {
                 guard let target = renameTarget else { return }
                 let newName = renameText.trimmingCharacters(in: .whitespacesAndNewlines)
                 Task { await commitRename(target: target, newName: newName) }
             }
         }
-        .sheet(item: $moveTarget) { target in
-            MoveSheet(folders: folders, currentFolder: target.folderID) { destination in
-                Task { await move(target, to: destination) }
+        .alert("Rename Folder", isPresented: Binding(get: { folderRenameTarget != nil }, set: { if !$0 { folderRenameTarget = nil } })) {
+            TextField("Folder name", text: $folderRenameText)
+            Button("Cancel", role: .cancel) { folderRenameTarget = nil }
+            Button("Save") {
+                guard let target = folderRenameTarget else { return }
+                let newName = folderRenameText.trimmingCharacters(in: .whitespacesAndNewlines)
+                Task { await commitFolderRename(target: target, newName: newName) }
             }
+        }
+        .confirmationDialog("Delete Folder?",
+                            isPresented: Binding(get: { folderDeleteTarget != nil }, set: { if !$0 { folderDeleteTarget = nil } }),
+                            titleVisibility: .visible) {
+            Button("Delete Folder", role: .destructive) {
+                if let target = folderDeleteTarget { Task { await deleteFolder(target) } }
+            }
+            Button("Cancel", role: .cancel) { folderDeleteTarget = nil }
+        } message: {
+            Text("The folder is removed. Its files aren’t deleted — they move back to the main vault.")
         }
         .alert("New Folder", isPresented: $showNewFolder) {
             TextField("Folder name", text: $newFolderName)
@@ -90,100 +105,95 @@ struct VaultGridView: View {
         }
     }
 
-    // MARK: Pieces
+    // MARK: Sections
 
-    /// A tile that either drives the split-view selection (iPad) or pushes a
-    /// detail screen (iPhone).
+    private var foldersSection: some View {
+        LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(rootFolders) { f in
+                NavigationLink {
+                    VaultGridView(side: side, folder: f, selection: selection)
+                } label: {
+                    FolderTile(folder: f, side: side)
+                }
+                .buttonStyle(.plain)
+                .contextMenu {
+                    Button { folderRenameTarget = f; folderRenameText = f.name } label: { Label("Rename", systemImage: "pencil") }
+                    Button(role: .destructive) { folderDeleteTarget = f } label: { Label("Delete Folder", systemImage: "trash") }
+                }
+            }
+        }
+        .padding(.horizontal, 8)
+        .padding(.top, 4)
+    }
+
+    private var filesSection: some View {
+        LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(filteredItems) { item in
+                tile(for: item)
+                    .contextMenu { liveActions(for: item) }
+            }
+        }
+        .padding(8)
+    }
+
     @ViewBuilder
     private func tile(for item: VaultFileSnapshot) -> some View {
         if let selection {
-            Button { selection.wrappedValue = item } label: {
-                FileTile(item: item, side: side)
-            }
-            .buttonStyle(.plain)
-            .overlay {
-                if selection.wrappedValue?.id == item.id {
-                    RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor, lineWidth: 3)
+            Button { selection.wrappedValue = item } label: { FileTile(item: item, side: side) }
+                .buttonStyle(.plain)
+                .overlay {
+                    if selection.wrappedValue?.id == item.id {
+                        RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor, lineWidth: 3)
+                    }
                 }
-            }
         } else {
-            NavigationLink { ItemDetailView(item: item, side: side) } label: {
-                FileTile(item: item, side: side)
-            }
-            .buttonStyle(.plain)
+            NavigationLink { ItemDetailView(item: item, side: side) } label: { FileTile(item: item, side: side) }
+                .buttonStyle(.plain)
         }
     }
 
     private var filteredItems: [VaultFileSnapshot] {
         items.filter { item in
-            (selectedFolder == nil || item.folderID == selectedFolder)
-                && (categoryFilter == nil || item.category == categoryFilter)
+            (categoryFilter == nil || item.category == categoryFilter)
                 && (searchText.isEmpty || item.name.localizedCaseInsensitiveContains(searchText))
         }
     }
 
-    private var folderChips: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                chip(title: "All", isOn: selectedFolder == nil) { selectedFolder = nil }
-                ForEach(folders) { folder in
-                    chip(title: folder.name, isOn: selectedFolder == folder.id) { selectedFolder = folder.id }
-                }
-            }
-            .padding(.horizontal, 8)
-        }
-        .padding(.top, 4)
-    }
+    /// Folders always come from the side's root (used for the Move picker too).
+    private var rootFolders: [VaultFolderSnapshot] { folders }
 
-    private func chip(title: String, isOn: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(title).font(.footnote.weight(.medium))
-                .padding(.horizontal, 12).padding(.vertical, 6)
-                .background(isOn ? Color.accentColor.opacity(0.2) : Color.gray.opacity(0.15))
-                .clipShape(Capsule())
-        }
-        .buttonStyle(.plain)
-    }
+    // MARK: Footer (root only)
 
-    /// Pinned footer: Archive and Recently Deleted, always at the very bottom
-    /// (they don't scroll with the grid). Compact side-by-side cards over a bar
-    /// so they read as a fixed dock.
     private var destinationsFooter: some View {
         VStack(spacing: 0) {
             Divider()
             HStack(spacing: 10) {
-                footerCard(icon: "archivebox", title: "Archive", count: archiveCount) {
-                    StateListView(side: side, state: .archived)
-                }
-                footerCard(icon: "trash", title: "Recently Deleted", count: trashCount) {
-                    StateListView(side: side, state: .trashed)
-                }
+                footerCard(icon: "archivebox", title: "Archive", count: archiveCount) { StateListView(side: side, state: .archived) }
+                footerCard(icon: "trash", title: "Recently Deleted", count: trashCount) { StateListView(side: side, state: .trashed) }
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 12).padding(.vertical, 8)
         }
         .background(.bar)
     }
 
     private func footerCard<Destination: View>(icon: String, title: String, count: Int,
                                                @ViewBuilder destination: @escaping () -> Destination) -> some View {
-        NavigationLink {
-            destination()
-        } label: {
+        NavigationLink { destination() } label: {
             HStack(spacing: 8) {
                 Image(systemName: icon)
                 Text(title).font(.caption).lineLimit(1)
                 Spacer(minLength: 4)
                 Text("\(count)").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 12).padding(.vertical, 10)
             .frame(maxWidth: .infinity)
             .background(Color.secondary.opacity(0.12))
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .buttonStyle(.plain)
     }
+
+    // MARK: Toolbar
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
@@ -208,11 +218,11 @@ struct VaultGridView: View {
             Menu {
                 Button { showPhotoPicker = true } label: { Label("Photos", systemImage: "photo") }
                 Button { showFileImporter = true } label: { Label("Files", systemImage: "doc") }
-                Divider()
-                Button { showNewFolder = true } label: { Label("New Folder", systemImage: "folder.badge.plus") }
-            } label: {
-                Image(systemName: "plus")
-            }
+                if isRoot {
+                    Divider()
+                    Button { showNewFolder = true } label: { Label("New Folder", systemImage: "folder.badge.plus") }
+                }
+            } label: { Image(systemName: "plus") }
         }
     }
 
@@ -220,6 +230,7 @@ struct VaultGridView: View {
     private func liveActions(for item: VaultFileSnapshot) -> some View {
         Button { renameTarget = item; renameText = item.name } label: { Label("Rename", systemImage: "pencil") }
         Button { moveTarget = item } label: { Label("Move to Folder", systemImage: "folder") }
+        Button { Task { await share(item) } } label: { Label("Share", systemImage: "square.and.arrow.up") }
         Button { Task { await archive(item) } } label: { Label("Archive", systemImage: "archivebox") }
         Button(role: .destructive) { Task { await trash(item) } } label: { Label("Delete", systemImage: "trash") }
     }
@@ -229,67 +240,72 @@ struct VaultGridView: View {
     private func load() async {
         do {
             let store = try await VaultService.shared.vaultStore()
-            items = try await store.liveFiles(side: side)
-            folders = try await store.folders(side: side)
-            archiveCount = try await store.archiveCount(side: side)
-            trashCount = try await store.recentlyDeletedCount(side: side)
-        } catch { /* surfaced elsewhere; keep the grid resilient */ }
+            let all = try await store.liveFiles(side: side)
+            items = all.filter { $0.folderID == folder?.id }
+            if isRoot {
+                folders = try await store.folders(side: side)
+                archiveCount = try await store.archiveCount(side: side)
+                trashCount = try await store.recentlyDeletedCount(side: side)
+            }
+        } catch { /* keep the grid resilient */ }
     }
 
     private func archive(_ item: VaultFileSnapshot) async {
-        try? await VaultService.shared.vaultStore().archive(id: item.id)
-        await load()
+        try? await VaultService.shared.vaultStore().archive(id: item.id); await load()
     }
-
     private func trash(_ item: VaultFileSnapshot) async {
-        try? await VaultService.shared.vaultStore().trash(id: item.id)
-        await load()
+        try? await VaultService.shared.vaultStore().trash(id: item.id); await load()
     }
-
-    private func move(_ item: VaultFileSnapshot, to folder: UUID?) async {
-        try? await VaultService.shared.vaultStore().move(id: item.id, toFolder: folder)
-        moveTarget = nil
-        await load()
+    private func move(_ item: VaultFileSnapshot, to folderID: UUID?) async {
+        try? await VaultService.shared.vaultStore().move(id: item.id, toFolder: folderID)
+        moveTarget = nil; await load()
     }
-
+    private func share(_ item: VaultFileSnapshot) async {
+        // Decrypt to the short-lived preview cache for the share sheet.
+        if let url = try? await VaultService.shared.decryptToPreviewCache(id: item.id, name: item.name, side: side) {
+            sharePayload = SharePayload(url: url)
+        }
+    }
     private func commitRename(target: VaultFileSnapshot, newName: String) async {
         renameTarget = nil
         guard !newName.isEmpty else { return }
-        try? await VaultService.shared.vaultStore().rename(id: target.id, to: newName)
-        await load()
+        try? await VaultService.shared.vaultStore().rename(id: target.id, to: newName); await load()
     }
-
+    private func commitFolderRename(target: VaultFolderSnapshot, newName: String) async {
+        folderRenameTarget = nil
+        guard !newName.isEmpty else { return }
+        try? await VaultService.shared.vaultStore().renameFolder(id: target.id, to: newName); await load()
+    }
+    private func deleteFolder(_ target: VaultFolderSnapshot) async {
+        folderDeleteTarget = nil
+        try? await VaultService.shared.vaultStore().deleteFolder(id: target.id); await load()
+    }
     private func createFolder() async {
         let name = newFolderName.trimmingCharacters(in: .whitespacesAndNewlines)
         newFolderName = ""
         guard !name.isEmpty else { return }
-        _ = try? await VaultService.shared.vaultStore()
-            .createFolder(name: name, colorIndex: Int.random(in: 0..<8), side: side)
+        _ = try? await VaultService.shared.vaultStore().createFolder(name: name, colorIndex: Int.random(in: 0..<10), side: side)
         await load()
     }
-
     private func importPhotos(_ picks: [PhotosPickerItem]) async {
         for pick in picks {
             if let data = try? await pick.loadTransferable(type: Data.self) {
                 let name = "Photo-\(Int(Date().timeIntervalSince1970)).jpg"
                 _ = try? await VaultService.shared.importData(data, name: name, mimeType: "image/jpeg",
-                                                              folderID: selectedFolder, side: side)
+                                                              folderID: folder?.id, side: side)
             }
         }
-        photoPicks = []
-        await load()
+        photoPicks = []; await load()
     }
-
     private func importFiles(_ result: Result<[URL], Error>) async {
         guard case let .success(urls) = result else { return }
         for url in urls {
             let scoped = url.startAccessingSecurityScopedResource()
             defer { if scoped { url.stopAccessingSecurityScopedResource() } }
             guard let data = try? Data(contentsOf: url) else { continue }
-            let ext = url.pathExtension
-            let mime = UTType(filenameExtension: ext)?.preferredMIMEType ?? "application/octet-stream"
+            let mime = UTType(filenameExtension: url.pathExtension)?.preferredMIMEType ?? "application/octet-stream"
             _ = try? await VaultService.shared.importData(data, name: url.lastPathComponent, mimeType: mime,
-                                                          folderID: selectedFolder, side: side)
+                                                          folderID: folder?.id, side: side)
         }
         await load()
     }
@@ -298,26 +314,40 @@ struct VaultGridView: View {
 /// Grid tile density — the "different grid view options".
 enum GridDensity: String, CaseIterable, Hashable {
     case compact, comfortable, large
-
     var minimum: CGFloat {
-        switch self {
-        case .compact: return 78
-        case .comfortable: return 108
-        case .large: return 156
-        }
+        switch self { case .compact: return 78; case .comfortable: return 108; case .large: return 156 }
     }
     var title: String {
-        switch self {
-        case .compact: return "Compact"
-        case .comfortable: return "Comfortable"
-        case .large: return "Large"
-        }
+        switch self { case .compact: return "Compact"; case .comfortable: return "Comfortable"; case .large: return "Large" }
     }
     var symbol: String {
         switch self {
         case .compact: return "square.grid.4x3.fill"
         case .comfortable: return "square.grid.3x3.fill"
         case .large: return "square.grid.2x2.fill"
+        }
+    }
+}
+
+/// Wraps a decrypted temp URL so it can drive a share `.sheet(item:)`.
+private struct SharePayload: Identifiable {
+    let id = UUID()
+    let url: URL
+}
+
+private struct FileShareSheet: View {
+    let url: URL
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 16) {
+                Image(systemName: "square.and.arrow.up").font(.system(size: 44)).foregroundStyle(.secondary)
+                Text(url.lastPathComponent).font(.footnote).foregroundStyle(.secondary).lineLimit(1)
+                ShareLink(item: url) { Label("Share", systemImage: "square.and.arrow.up") }
+                    .buttonStyle(.borderedProminent)
+            }
+            .padding()
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } } }
         }
     }
 }
@@ -332,15 +362,11 @@ private struct MoveSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                Button {
-                    onPick(nil); dismiss()
-                } label: {
+                Button { onPick(nil); dismiss() } label: {
                     HStack { Text("No Folder"); Spacer(); if currentFolder == nil { Image(systemName: "checkmark") } }
                 }
                 ForEach(folders) { folder in
-                    Button {
-                        onPick(folder.id); dismiss()
-                    } label: {
+                    Button { onPick(folder.id); dismiss() } label: {
                         HStack { Text(folder.name); Spacer(); if currentFolder == folder.id { Image(systemName: "checkmark") } }
                     }
                 }
