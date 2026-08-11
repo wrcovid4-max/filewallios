@@ -210,7 +210,11 @@ final class GoogleAuth: NSObject, ObservableObject {
     /// Pull "email" from the id_token JWT payload (middle base64url segment). No
     /// signature verification here — the token came straight from Google's TLS
     /// endpoint and is used only for display, never for authorization.
-    static func email(fromIDToken idToken: String) -> String? {
+    ///
+    /// `nonisolated`: it reads no instance state, so it needn't hop to the main
+    /// actor — and being nonisolated lets `flatMap` reference it without the
+    /// "loses global actor 'MainActor'" warning.
+    nonisolated static func email(fromIDToken idToken: String) -> String? {
         let parts = idToken.split(separator: ".")
         guard parts.count == 3 else { return nil }
         var payload = String(parts[1])

@@ -132,13 +132,7 @@ extension VaultFileQuery: EntityPropertyQuery {
 
         let sortDescriptors: [NSSortDescriptor] = sortedBy.compactMap { sort in
             guard let key = Self.sortKeys[sort.by] else { return nil }
-            let ascending: Bool
-            switch sort.order {
-            case .ascending: ascending = true
-            case .descending: ascending = false
-            @unknown default: ascending = false
-            }
-            return NSSortDescriptor(key: key, ascending: ascending)
+            return NSSortDescriptor(key: key, ascending: sort.order == .ascending)
         }
 
         return try await VaultService.shared
