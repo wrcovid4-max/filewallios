@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit          // UIImage lives here on watchOS; SwiftUI doesn't re-export it
 import FileWallKit
 
 /// Detail for one item. Photos load on demand and zoom with the Digital Crown.

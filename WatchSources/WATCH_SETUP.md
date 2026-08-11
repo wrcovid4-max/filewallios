@@ -9,7 +9,7 @@ even ask for them.
 ## Files
 
 ```
-FileWallWatch/                      (watchOS App target)
+WatchSources/                       (files for the watchOS App target)
   FileWallWatchApp.swift            @main
   WatchConnectivityClient.swift     WCSession: request manifest / photo / open-on-phone
   WatchVaultView.swift              list of items + vault size
@@ -30,8 +30,8 @@ FileWallKit/.../WatchTransfer.swift      shared DTOs + message keys
    - Min watchOS **9.0**.
 2. Xcode creates a `FileWallWatch` group with its own `…App.swift`/`ContentView`.
    **Delete the generated `ContentView.swift` and the generated `…App.swift`**,
-   then **Add Files to "FileWallWatch"…** and add the four files from the repo's
-   `FileWallWatch/` folder, ☑ target **FileWallWatch**.
+   then **Add Files to "FileWallWatch"…** and add the four `.swift` files from the
+   repo's `WatchSources/` folder, ☑ target **FileWallWatch**.
 3. Select the **FileWallWatch** target ▸ **General ▸ Frameworks, Libraries** ▸
    **+** ▸ add **FileWallKit** (the watch shares the DTOs).
 4. On the **FileWall** (phone) target, make sure `FileWall/Watch/PhoneWatchSession.swift`
