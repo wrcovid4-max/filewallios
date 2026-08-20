@@ -229,7 +229,18 @@ struct SecurityView: View {
         } header: {
             Text("Cloud Backup & Sync")
         } footer: {
-            Text("Encrypted before it leaves your device and shares one backup with the FileWall Android app. As safe as your Google account.")
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Encrypted before it leaves your device and shares one backup with the FileWall Android app. As safe as your Google account.")
+                if !auth.isSignedIn {
+                    Text("By signing in, you agree to our terms.")
+                    HStack(spacing: 6) {
+                        Link("Terms of Use", destination: FileWallLink.terms)
+                        Text("·").foregroundStyle(.secondary)
+                        Link("Privacy Policy", destination: FileWallLink.privacy)
+                    }
+                    .font(.footnote)
+                }
+            }
         }
     }
 
