@@ -44,6 +44,10 @@ struct SecurityView: View {
             privacySection
             localArchiveSection
             backupSection
+            aboutSection
+            platformsSection
+            helpSection
+            legalSection
         }
         .navigationTitle("Security")
         .task { await loadStorage() }
@@ -226,6 +230,55 @@ struct SecurityView: View {
             Text("Cloud Backup & Sync")
         } footer: {
             Text("Encrypted before it leaves your device and shares one backup with the FileWall Android app. As safe as your Google account.")
+        }
+    }
+
+    // MARK: About / links
+
+    private var aboutSection: some View {
+        Section {
+            Link(destination: FileWallLink.home) { Label("FileWall Website", systemImage: "safari") }
+            Link(destination: FileWallLink.screens) { Label("Screenshots", systemImage: "photo.on.rectangle") }
+            Link(destination: FileWallLink.news) { Label("What’s New", systemImage: "newspaper") }
+            Link(destination: FileWallLink.appleBeta) { Label("Apple Beta Program", systemImage: "hammer") }
+            Link(destination: FileWallLink.download) { Label("Get FileWall", systemImage: "arrow.down.app") }
+        } header: {
+            Text("About")
+        }
+    }
+
+    private var platformsSection: some View {
+        Section {
+            Link(destination: FileWallLink.platforms) { Label("Overview", systemImage: "square.stack.3d.up") }
+            Link(destination: FileWallLink.iPhone) { Label("iPhone", systemImage: "iphone") }
+            Link(destination: FileWallLink.iPad) { Label("iPad", systemImage: "ipad") }
+            Link(destination: FileWallLink.vision) { Label("Apple Vision Pro", systemImage: "eyeglasses") }
+            Link(destination: FileWallLink.xr) { Label("Extended Reality", systemImage: "cube.transparent") }
+        } header: {
+            Text("Platforms")
+        }
+    }
+
+    private var helpSection: some View {
+        Section {
+            Link(destination: FileWallLink.support) { Label("Support", systemImage: "questionmark.circle") }
+            Link(destination: FileWallLink.accessibility) { Label("Accessibility", systemImage: "accessibility") }
+        } header: {
+            Text("Help")
+        }
+    }
+
+    private var legalSection: some View {
+        Section {
+            Link(destination: FileWallLink.privacy) { Label("Privacy Policy", systemImage: "hand.raised") }
+            Link(destination: FileWallLink.terms) { Label("Terms of Use", systemImage: "doc.plaintext") }
+            Link(destination: FileWallLink.trademarks) { Label("Trademarks", systemImage: "checkmark.seal") }
+        } header: {
+            Text("Legal")
+        } footer: {
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                Text("FileWall \(version)")
+            }
         }
     }
 

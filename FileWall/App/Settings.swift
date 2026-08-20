@@ -6,6 +6,29 @@ extension Notification.Name {
     static let vaultFoldersDidChange = Notification.Name("vaultFoldersDidChange")
 }
 
+/// The FileWall website pages, surfaced from Settings. Centralised so the links
+/// live in one place (and can be reused by onboarding or the watch later).
+enum FileWallLink {
+    private static let base = "https://wrcovid4-max.github.io/FileWallWeb/"
+    private static func url(_ page: String) -> URL { URL(string: base + page)! }
+
+    static let home         = url("index.html")
+    static let screens      = url("screens.html")
+    static let platforms    = url("platforms.html")
+    static let iPhone       = url("ios.html")
+    static let iPad         = url("ipad.html")
+    static let vision       = url("vision.html")
+    static let xr           = url("xr.html")
+    static let news         = url("news.html")
+    static let appleBeta    = url("news-apple-beta.html")
+    static let download     = url("download.html")
+    static let support      = url("support.html")
+    static let accessibility = url("accessibility.html")
+    static let privacy      = url("privacy.html")
+    static let terms        = url("terms.html")
+    static let trademarks   = url("trademarks.html")
+}
+
 /// UserDefaults keys for the app's preferences. Centralised so `@AppStorage` in
 /// the views and direct `UserDefaults` reads in non-view code (PhoneWatchSession,
 /// AppState) use the exact same strings.
