@@ -67,12 +67,22 @@ struct VaultGridView: View {
         .navigationBarTitleDisplayMode(isRoot ? .large : .inline)
         .searchable(text: $searchText, prompt: "Search by name")
         .toolbar { toolbarContent }
+        .background(keyboardShortcuts)
         .photosPicker(isPresented: $showPhotoPicker, selection: $photoPicks, matching: .images)
         .task { await load() }
         .refreshable { await load() }
         .onChange(of: photoPicks) { picks in Task { await importPhotos(picks) } }
         .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.item],
                       allowsMultipleSelection: true) { result in Task { await importFiles(result) } }
+        .onDrop(of: [UTType.fileURL], isTargeted: nil) { providers in
+            for provider in providers {
+                _ = provider.loadObject(ofClass: URL.self) { url, _ in
+                    guard let url else { return }
+                    Task { await importFiles(.success([url])) }
+                }
+            }
+            return true
+        }
         .sheet(item: $moveTarget) { target in
             MoveSheet(folders: rootFolders, currentFolder: target.folderID) { destination in
                 Task { await move(target, to: destination) }
@@ -400,6 +410,18 @@ struct VaultGridView: View {
         }
         photoPicks = []; await load()
     }
+    /// Hidden buttons that give an iPad hardware keyboard shortcuts for the common actions.
+    private var keyboardShortcuts: some View {
+        ZStack {
+            Button("Import Files") { showFileImporter = true }
+                .keyboardShortcut("i", modifiers: .command)
+            Button("Import Photos") { showPhotoPicker = true }
+                .keyboardShortcut("i", modifiers: [.command, .shift])
+        }
+        .opacity(0)
+        .frame(width: 0, height: 0)
+    }
+
     private func importFiles(_ result: Result<[URL], Error>) async {
         guard case let .success(urls) = result else { return }
         for url in urls {
