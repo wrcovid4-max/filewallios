@@ -17,11 +17,11 @@ struct LanguageSelection: ViewModifier {
                 LanguageGlobeMenu(
                     selected: language,
                     texts: LanguageMenuTexts(
-                        accessibilityLabel: "Languages",
-                        title: "Switch language?",
-                        body: "Your files and settings are kept.",
-                        confirm: "Switch",
-                        cancel: "Cancel"
+                        accessibilityLabel: String(localized: "Languages"),
+                        title: String(localized: "Switch language?"),
+                        body: String(localized: "Your files and settings are kept."),
+                        confirm: String(localized: "Switch"),
+                        cancel: String(localized: "Cancel")
                     ),
                     onSelect: { languageTag = $0.rawValue }
                 )

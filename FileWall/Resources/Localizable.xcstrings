@@ -1,0 +1,2096 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "About": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acerca de"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کے بارے میں"
+          }
+        }
+      }
+    },
+    "Accessibility": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accesibilidad"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رسائی"
+          }
+        }
+      }
+    },
+    "All Types": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos los tipos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمام اقسام"
+          }
+        }
+      }
+    },
+    "Allow": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اجازت دیں"
+          }
+        }
+      }
+    },
+    "Allow Screenshots": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir capturas de pantalla"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسکرین شاٹس کی اجازت دیں"
+          }
+        }
+      }
+    },
+    "Appearance": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apariencia"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ظاہری شکل"
+          }
+        }
+      }
+    },
+    "Apple Beta Program": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Programa Beta de Apple"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple بیٹا پروگرام"
+          }
+        }
+      }
+    },
+    "Archive": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آرکائیو"
+          }
+        }
+      }
+    },
+    "Archive Passphrase": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frase de contraseña del archivo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آرکائیو پاس فریز"
+          }
+        }
+      }
+    },
+    "Ask AI": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preguntar a la IA"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI سے پوچھیں"
+          }
+        }
+      }
+    },
+    "Ask about this file": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preguntar sobre este archivo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اس فائل کے بارے میں پوچھیں"
+          }
+        }
+      }
+    },
+    "Authentication failed. Try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La autenticación falló. Inténtalo de nuevo."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصدیق ناکام ہوئی۔ دوبارہ کوشش کریں۔"
+          }
+        }
+      }
+    },
+    "Back Up Now": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hacer copia de seguridad ahora"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابھی بیک اپ کریں"
+          }
+        }
+      }
+    },
+    "Back up daily": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia de seguridad diaria"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "روزانہ بیک اپ"
+          }
+        }
+      }
+    },
+    "By signing in, you agree to our terms.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al iniciar sesión, aceptas nuestros términos."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سائن ان کرکے آپ ہماری شرائط سے اتفاق کرتے ہیں۔"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "منسوخ کریں"
+          }
+        }
+      }
+    },
+    "Clean up text (.txt)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limpiar texto (.txt)"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متن صاف کریں (.txt)"
+          }
+        }
+      }
+    },
+    "Cloud Backup & Sync": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia en la nube y sincronización"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلاؤڈ بیک اپ اور سنک"
+          }
+        }
+      }
+    },
+    "Continuous": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسلسل"
+          }
+        }
+      }
+    },
+    "Convert": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convertir"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبدیل کریں"
+          }
+        }
+      }
+    },
+    "Convert…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convertir…"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبدیل کریں…"
+          }
+        }
+      }
+    },
+    "Create": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بنائیں"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف کریں"
+          }
+        }
+      }
+    },
+    "Delete Folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar carpeta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فولڈر حذف کریں"
+          }
+        }
+      }
+    },
+    "Delete Folder?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Eliminar carpeta?"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فولڈر حذف کریں؟"
+          }
+        }
+      }
+    },
+    "Delete Forever": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar para siempre"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ہمیشہ کے لیے حذف کریں"
+          }
+        }
+      }
+    },
+    "Delete Forever?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Eliminar para siempre?"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ہمیشہ کے لیے حذف کریں؟"
+          }
+        }
+      }
+    },
+    "Document Previews": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vistas previas de documentos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دستاویز کی پیش نظارہ"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ہو گیا"
+          }
+        }
+      }
+    },
+    "Empty": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vacío"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خالی"
+          }
+        }
+      }
+    },
+    "Empty Recently Deleted?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Vaciar Eliminados recientemente?"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حال ہی میں حذف شدہ خالی کریں؟"
+          }
+        }
+      }
+    },
+    "Encrypted Archive": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo cifrado"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خفیہ آرکائیو"
+          }
+        }
+      }
+    },
+    "Encrypted before it leaves your device and shares one backup with the FileWall Android app. As safe as your Google account.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se cifra antes de salir de tu dispositivo y comparte una copia de seguridad con la app FileWall de Android. Tan segura como tu cuenta de Google."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آپ کے آلے سے نکلنے سے پہلے خفیہ کیا جاتا ہے اور FileWall کی Android ایپ کے ساتھ ایک بیک اپ شیئر کرتا ہے۔ آپ کے Google اکاؤنٹ جتنا محفوظ۔"
+          }
+        }
+      }
+    },
+    "Enter the passphrase this .fwvault was exported with.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introduce la frase de contraseña con la que se exportó este .fwvault."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وہ پاس فریز درج کریں جس کے ساتھ یہ .fwvault ایکسپورٹ ہوئی تھی۔"
+          }
+        }
+      }
+    },
+    "Export": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ایکسپورٹ"
+          }
+        }
+      }
+    },
+    "Export .fwvault": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar .fwvault"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ".fwvault ایکسپورٹ کریں"
+          }
+        }
+      }
+    },
+    "Export Passphrase": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frase de exportación"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ایکسپورٹ پاس فریز"
+          }
+        }
+      }
+    },
+    "Export a Copy": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar una copia"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ایک کاپی ایکسپورٹ کریں"
+          }
+        }
+      }
+    },
+    "Export the whole vault as a single passphrase-protected .fwvault file (Save to Files), or restore one. Same format as the FileWall Android app.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporta toda la bóveda como un único archivo .fwvault protegido con frase de contraseña (Guardar en Archivos), o restaura uno. Mismo formato que la app FileWall de Android."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پورے والٹ کو ایک پاس فریز سے محفوظ .fwvault فائل کے طور پر ایکسپورٹ کریں (فائلز میں محفوظ کریں)، یا ایک بحال کریں۔ FileWall کی Android ایپ جیسا فارمیٹ۔"
+          }
+        }
+      }
+    },
+    "Extended Reality": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Realidad extendida"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "توسیع شدہ حقیقت"
+          }
+        }
+      }
+    },
+    "Extract text (.txt)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extraer texto (.txt)"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متن نکالیں (.txt)"
+          }
+        }
+      }
+    },
+    "FileWall Website": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sitio web de FileWall"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "FileWall ویب سائٹ"
+          }
+        }
+      }
+    },
+    "Files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فائلیں"
+          }
+        }
+      }
+    },
+    "Folder name": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre de la carpeta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فولڈر کا نام"
+          }
+        }
+      }
+    },
+    "Full Screen": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pantalla completa"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پوری اسکرین"
+          }
+        }
+      }
+    },
+    "Get FileWall": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obtener FileWall"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "FileWall حاصل کریں"
+          }
+        }
+      }
+    },
+    "Help": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayuda"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مدد"
+          }
+        }
+      }
+    },
+    "Hidden": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oculto"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چھپی ہوئی"
+          }
+        }
+      }
+    },
+    "Hidden Vault": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bóveda oculta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چھپا ہوا والٹ"
+          }
+        }
+      }
+    },
+    "Import Files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar archivos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فائلیں درآمد کریں"
+          }
+        }
+      }
+    },
+    "Import Photos": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar fotos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصاویر درآمد کریں"
+          }
+        }
+      }
+    },
+    "Inactivity Auto-Lock": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueo automático por inactividad"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غیر فعالی پر خودکار لاک"
+          }
+        }
+      }
+    },
+    "Languages": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idiomas"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زبانیں"
+          }
+        }
+      }
+    },
+    "Layout": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diseño"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ترتیب"
+          }
+        }
+      }
+    },
+    "Legal": {
+      "localizations": {
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قانونی"
+          }
+        }
+      }
+    },
+    "Let Ask AI see my files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir que Preguntar a la IA vea mis archivos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI کو میری فائلیں دیکھنے دیں"
+          }
+        }
+      }
+    },
+    "Lock Hidden Vault Now": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquear bóveda oculta ahora"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چھپا ہوا والٹ ابھی لاک کریں"
+          }
+        }
+      }
+    },
+    "Lock after": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquear después de"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اس کے بعد لاک کریں"
+          }
+        }
+      }
+    },
+    "Locks the hidden vault after this idle time. The vault also always locks when the app goes to the background.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquea la bóveda oculta tras este tiempo de inactividad. La bóveda también se bloquea siempre que la app pasa a segundo plano."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اس غیر فعالی کے وقت کے بعد چھپا ہوا والٹ لاک ہو جاتا ہے۔ ایپ پس منظر میں جائے تو والٹ ہمیشہ لاک ہو جاتا ہے۔"
+          }
+        }
+      }
+    },
+    "Make a PDF": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear un PDF"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PDF بنائیں"
+          }
+        }
+      }
+    },
+    "Markup": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anotar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نشان زدگی"
+          }
+        }
+      }
+    },
+    "Move to Folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a carpeta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فولڈر میں منتقل کریں"
+          }
+        }
+      }
+    },
+    "Name": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نام"
+          }
+        }
+      }
+    },
+    "Navigation": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Navegación"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نیویگیشن"
+          }
+        }
+      }
+    },
+    "New Folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva carpeta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نیا فولڈر"
+          }
+        }
+      }
+    },
+    "No Folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin carpeta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کوئی فولڈر نہیں"
+          }
+        }
+      }
+    },
+    "No chats yet.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay chats."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابھی کوئی چیٹ نہیں۔"
+          }
+        }
+      }
+    },
+    "Not now": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahora no"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابھی نہیں"
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aceptar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ٹھیک ہے"
+          }
+        }
+      }
+    },
+    "Open Preview": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir vista previa"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیش نظارہ کھولیں"
+          }
+        }
+      }
+    },
+    "Overview": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumen"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جائزہ"
+          }
+        }
+      }
+    },
+    "Page": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Página"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صفحہ"
+          }
+        }
+      }
+    },
+    "Permanently erase everything in Recently Deleted for this vault.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borra de forma permanente todo lo que hay en Eliminados recientemente de esta bóveda."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اس والٹ کے حال ہی میں حذف شدہ میں موجود ہر چیز مستقل طور پر مٹا دیں۔"
+          }
+        }
+      }
+    },
+    "Photos": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصاویر"
+          }
+        }
+      }
+    },
+    "Platforms": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plataformas"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پلیٹ فارمز"
+          }
+        }
+      }
+    },
+    "Privacy": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacidad"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رازداری"
+          }
+        }
+      }
+    },
+    "Privacy Policy": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Política de privacidad"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رازداری کی پالیسی"
+          }
+        }
+      }
+    },
+    "Ready to share": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo para compartir"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شیئر کرنے کے لیے تیار"
+          }
+        }
+      }
+    },
+    "Recent chats": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chats recientes"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حالیہ چیٹس"
+          }
+        }
+      }
+    },
+    "Remove from Archive": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar del archivo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آرکائیو سے نکالیں"
+          }
+        }
+      }
+    },
+    "Rename": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar nombre"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نام بدلیں"
+          }
+        }
+      }
+    },
+    "Rename Folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar nombre de la carpeta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فولڈر کا نام بدلیں"
+          }
+        }
+      }
+    },
+    "Require biometrics only": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exigir solo biometría"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صرف بایومیٹرکس کی ضرورت"
+          }
+        }
+      }
+    },
+    "Restore": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بحال کریں"
+          }
+        }
+      }
+    },
+    "Restore from .fwvault": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar desde .fwvault"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ".fwvault سے بحال کریں"
+          }
+        }
+      }
+    },
+    "Restore from Backup": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar desde copia de seguridad"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بیک اپ سے بحال کریں"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "محفوظ کریں"
+          }
+        }
+      }
+    },
+    "Save or Share": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar o compartir"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "محفوظ کریں یا شیئر کریں"
+          }
+        }
+      }
+    },
+    "Save to Folder…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar en carpeta…"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فولڈر میں محفوظ کریں…"
+          }
+        }
+      }
+    },
+    "Screenshot saved to Photos": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Captura guardada en Fotos"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسکرین شاٹ تصاویر میں محفوظ ہو گیا"
+          }
+        }
+      }
+    },
+    "Screenshots": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capturas de pantalla"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسکرین شاٹس"
+          }
+        }
+      }
+    },
+    "Screenshots off keeps vault content out of the app-switcher preview and screen recordings. Apple Watch sync mirrors only non-hidden files to the watch. Document Previews render a PDF’s first page on its tile.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con las capturas desactivadas, el contenido de la bóveda no aparece en la vista previa del selector de apps ni en las grabaciones de pantalla. La sincronización con Apple Watch solo envía al reloj los archivos no ocultos. Las vistas previas de documentos muestran la primera página de un PDF en su ficha."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسکرین شاٹس بند ہوں تو والٹ کا مواد ایپ سوئچر کی جھلک اور اسکرین ریکارڈنگ میں نہیں آتا۔ Apple Watch سنک صرف غیر چھپی فائلیں واچ پر بھیجتا ہے۔ دستاویز کی پیش نظارہ PDF کا پہلا صفحہ ٹائل پر دکھاتا ہے۔"
+          }
+        }
+      }
+    },
+    "Section": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sección"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سیکشن"
+          }
+        }
+      }
+    },
+    "Section switcher": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selector de sección"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سیکشن کا انتخاب"
+          }
+        }
+      }
+    },
+    "Security": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguridad"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سیکیورٹی"
+          }
+        }
+      }
+    },
+    "Select an item to preview": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selecciona un elemento para previsualizarlo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیش نظارہ کے لیے کوئی آئٹم منتخب کریں"
+          }
+        }
+      }
+    },
+    "Send to Google Gemini?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Enviar a Google Gemini?"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google Gemini کو بھیجیں؟"
+          }
+        }
+      }
+    },
+    "Share": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartir"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شیئر کریں"
+          }
+        }
+      }
+    },
+    "Show the Vault / Hidden / Security switcher in a left sidebar (with your folders under it) or as a centered bar across the top.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muestra el selector Bóveda / Oculto / Seguridad en una barra lateral izquierda (con tus carpetas debajo) o como una barra centrada en la parte superior."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "والٹ / چھپی / سیکیورٹی کا انتخاب بائیں سائڈ بار میں (آپ کے فولڈرز اس کے نیچے) یا اوپر مرکز میں ایک پٹی کے طور پر دکھائیں۔"
+          }
+        }
+      }
+    },
+    "Sign Out": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar sesión"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سائن آؤٹ"
+          }
+        }
+      }
+    },
+    "Sign in with Google": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar sesión con Google"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google سے سائن ان کریں"
+          }
+        }
+      }
+    },
+    "Single page": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Página única"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ایک صفحہ"
+          }
+        }
+      }
+    },
+    "Speed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velocidad"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رفتار"
+          }
+        }
+      }
+    },
+    "Storage": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Almacenamiento"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسٹوریج"
+          }
+        }
+      }
+    },
+    "Support": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soporte"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سپورٹ"
+          }
+        }
+      }
+    },
+    "Switch": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبدیل کریں"
+          }
+        }
+      }
+    },
+    "Switch language?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cambiar idioma?"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زبان تبدیل کریں؟"
+          }
+        }
+      }
+    },
+    "Sync to Apple Watch": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizar con Apple Watch"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Watch سے سنک کریں"
+          }
+        }
+      }
+    },
+    "Tap a suggestion, or type your own question.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca una sugerencia o escribe tu propia pregunta."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کوئی تجویز منتخب کریں، یا اپنا سوال ٹائپ کریں۔"
+          }
+        }
+      }
+    },
+    "Terms of Use": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condiciones de uso"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استعمال کی شرائط"
+          }
+        }
+      }
+    },
+    "The folder is removed. Its files aren’t deleted — they move back to the main vault.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta se elimina. Sus archivos no se borran: vuelven a la bóveda principal."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فولڈر ہٹا دیا جائے گا۔ اس کی فائلیں حذف نہیں ہوں گی — وہ واپس اصل والٹ میں چلی جائیں گی۔"
+          }
+        }
+      }
+    },
+    "Theme": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tema"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تھیم"
+          }
+        }
+      }
+    },
+    "This can’t be undone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto no se puede deshacer."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "یہ واپس نہیں ہو سکتا۔"
+          }
+        }
+      }
+    },
+    "This is an AI and can make mistakes. The model used here is Gemini by Google Inc.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto es una IA y puede cometer errores. El modelo usado aquí es Gemini de Google Inc."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "یہ ایک AI ہے اور غلطیاں کر سکتا ہے۔ یہاں استعمال ہونے والا ماڈل Google Inc. کا Gemini ہے۔"
+          }
+        }
+      }
+    },
+    "Trademarks": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcas registradas"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ٹریڈمارک"
+          }
+        }
+      }
+    },
+    "Two pages": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dos páginas"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دو صفحات"
+          }
+        }
+      }
+    },
+    "Type": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قسم"
+          }
+        }
+      }
+    },
+    "Type your question": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe tu pregunta"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اپنا سوال ٹائپ کریں"
+          }
+        }
+      }
+    },
+    "Undo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deshacer"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "واپس کریں"
+          }
+        }
+      }
+    },
+    "Unlock": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloquear"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کھولیں"
+          }
+        }
+      }
+    },
+    "Unzip": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descomprimir"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ان زپ کریں"
+          }
+        }
+      }
+    },
+    "Vault": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bóveda"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "والٹ"
+          }
+        }
+      }
+    },
+    "What’s New": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novedades"
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نیا کیا ہے"
+          }
+        }
+      }
+    },
+    "When on, Gemini can read your visible files when you ask a question, without asking each time. Hidden files always ask first.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuando está activado, Gemini puede leer tus archivos visibles cuando haces una pregunta, sin preguntar cada vez. Los archivos ocultos siempre preguntan primero."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جب آن ہو تو سوال پوچھنے پر Gemini آپ کی نظر آنے والی فائلیں ہر بار پوچھے بغیر پڑھ سکتا ہے۔ چھپی ہوئی فائلیں ہمیشہ پہلے پوچھتی ہیں۔"
+          }
+        }
+      }
+    },
+    "With this off, Face ID or Touch ID falls back to your device passcode. With it on, only biometrics can unlock the hidden vault.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con esto desactivado, Face ID o Touch ID recurren al código de tu dispositivo. Con esto activado, solo la biometría puede desbloquear la bóveda oculta."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "یہ بند ہو تو Face ID یا Touch ID آپ کے آلے کے پاس کوڈ پر واپس آ جاتا ہے۔ آن ہو تو صرف بایومیٹرکس چھپا ہوا والٹ کھول سکتا ہے۔"
+          }
+        }
+      }
+    },
+    "Your encrypted archive is ready.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu archivo cifrado está listo."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آپ کا خفیہ آرکائیو تیار ہے۔"
+          }
+        }
+      }
+    },
+    "Your files and settings are kept.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus archivos y ajustes se conservan."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آپ کی فائلیں اور ترتیبات محفوظ رہیں گی۔"
+          }
+        }
+      }
+    },
+    "Your files, encrypted on this device.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus archivos, cifrados en este dispositivo."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آپ کی فائلیں، اس آلے پر خفیہ۔"
+          }
+        }
+      }
+    },
+    "Your vault is empty.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu bóveda está vacía."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آپ کا والٹ خالی ہے۔"
+          }
+        }
+      }
+    },
+    "You’ll need this passphrase to restore the archive. It isn’t stored anywhere.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesitarás esta frase de contraseña para restaurar el archivo. No se guarda en ningún sitio."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آرکائیو بحال کرنے کے لیے یہ پاس فریز درکار ہوگا۔ یہ کہیں محفوظ نہیں کیا جاتا۔"
+          }
+        }
+      }
+    },
+    "iOS can’t block screenshots. A picture of what was on screen now exists in your photo library.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS no puede bloquear las capturas de pantalla. Ahora existe una imagen de lo que había en pantalla en tu biblioteca de fotos."
+          }
+        },
+        "ur": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS اسکرین شاٹس نہیں روک سکتا۔ جو کچھ اسکرین پر تھا اس کی تصویر اب آپ کی فوٹو لائبریری میں موجود ہے۔"
+          }
+        }
+      }
+    }
+  }
+}
