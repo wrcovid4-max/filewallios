@@ -1,3 +1,4 @@
+import UniformTypeIdentifiers
 import SwiftUI
 import FileWallKit
 #if os(iOS)
@@ -22,6 +23,7 @@ struct ItemDetailView: View {
     @State private var showMarkup = false
     @State private var showAI = false
     @State private var showConvert = false
+    @State private var unzipResult: String?
     #endif
 
     var body: some View {
@@ -55,6 +57,11 @@ struct ItemDetailView: View {
                     Button { showConvert = true } label: {
                         Label("Convert…", systemImage: "arrow.triangle.2.circlepath")
                     }
+                    if item.name.lowercased().hasSuffix(".zip") {
+                        Button { Task { await unzipItem() } } label: {
+                            Label("Unzip", systemImage: "archivebox")
+                        }
+                    }
                     if let previewURL {
                         ShareLink("Export a Copy", item: previewURL)
                     }
@@ -70,7 +77,31 @@ struct ItemDetailView: View {
         .fullScreenCover(isPresented: $showMarkup) { markupEditor }
         .sheet(isPresented: $showAI) { AskAISheet(item: item, side: side) }
         .sheet(isPresented: $showConvert) { if let previewURL { ConvertView(sourceURL: previewURL) } }
+        .alert(unzipResult ?? "", isPresented: Binding(get: { unzipResult != nil }, set: { if !$0 { unzipResult = nil } })) {
+            Button("OK", role: .cancel) {}
+        }
         #endif
+    }
+
+    /// Unzips the zip into the same folder in the vault.
+    private func unzipItem() async {
+        do {
+            guard let zipData = try? await VaultService.shared.decryptedData(for: item.id, side: side) else {
+                unzipResult = "The zip could not be opened."
+                return
+            }
+            var count = 0
+            for file in try ZipExtract.files(in: zipData) {
+                let mime = UTType(filenameExtension: (file.name as NSString).pathExtension)?.preferredMIMEType
+                    ?? "application/octet-stream"
+                _ = try await VaultService.shared.importData(file.data, name: file.name, mimeType: mime,
+                                                             folderID: item.folderID, side: side)
+                count += 1
+            }
+            unzipResult = "Unzipped \(count) file\(count == 1 ? "" : "s") into this folder."
+        } catch {
+            unzipResult = "This zip could not be unzipped: \(error.localizedDescription)"
+        }
     }
 
     #if os(iOS)

@@ -21,7 +21,9 @@ enum AIConsent {
 enum DocText {
     static func read(url: URL) -> String {
         if url.pathExtension.lowercased() == "pdf", let doc = PDFDocument(url: url) {
-            return doc.string ?? ""
+            return (0..<doc.pageCount).map { index in
+                "=== Page \(index + 1) ===\n" + (doc.page(at: index)?.string ?? "")
+            }.joined(separator: "\n\n")
         }
         return (try? String(contentsOf: url, encoding: .utf8)) ?? ""
     }
@@ -38,6 +40,8 @@ struct AskAISheet: View {
     @State private var turns: [GeminiClient.Turn] = []
     @State private var input = ""
     @State private var sending = false
+    @State private var fileURL: URL?
+    @State private var openPage: Int?
 
     var body: some View {
         NavigationView {
@@ -52,6 +56,9 @@ struct AskAISheet: View {
         }
         .onAppear { allowed = AIConsent.allowed(for: item) }
         .task(id: allowed) { if allowed { await prepare() } }
+        .sheet(isPresented: Binding(get: { openPage != nil }, set: { if !$0 { openPage = nil } })) {
+            if let url = fileURL { PDFPageViewer(url: url, page: openPage ?? 1) }
+        }
     }
 
     private var consentCard: some View {
@@ -97,6 +104,10 @@ struct AskAISheet: View {
                             if !turn.fromUser { Spacer() }
                         }
                     }
+                    if let page = lastPageMention, fileURL != nil, !sending {
+                        Button("Open page \(page)") { openPage = page }
+                            .buttonStyle(.borderedProminent)
+                    }
                     if sending { ProgressView("Thinking…") }
                 }
                 .padding()
@@ -116,11 +127,19 @@ struct AskAISheet: View {
         }
     }
 
+    /// The page the latest answer points to ("PAGE: N" at the end), if any.
+    private var lastPageMention: Int? {
+        guard let last = turns.last(where: { !$0.fromUser }),
+              let range = last.text.range(of: "PAGE:\\s*\\d+", options: .regularExpression) else { return nil }
+        return Int(last.text[range].filter(\.isNumber))
+    }
+
     private func prepare() async {
         guard context.isEmpty else { return }
         var text = ""
         if let url = try? await VaultService.shared.decryptToPreviewCache(id: item.id, name: item.name, side: side) {
             text = DocText.read(url: url)
+            fileURL = url
         }
         context = String(text.prefix(60000))
         if !context.isEmpty {

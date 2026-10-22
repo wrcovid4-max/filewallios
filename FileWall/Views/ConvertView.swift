@@ -1,3 +1,4 @@
+import FileWallKit
 import SwiftUI
 import PDFKit
 
@@ -11,6 +12,7 @@ struct ConvertView: View {
     @State private var message = ""
 
     private var isPDF: Bool { sourceURL.pathExtension.lowercased() == "pdf" }
+    private var isDOCX: Bool { sourceURL.pathExtension.lowercased() == "docx" }
 
     var body: some View {
         NavigationView {
@@ -18,6 +20,9 @@ struct ConvertView: View {
                 Section("Convert \(sourceURL.lastPathComponent)") {
                     if isPDF {
                         Button("Extract text (.txt)") { run(textFromPDF) }
+                    } else if isDOCX {
+                        Button("Extract text (.txt)") { run(textFromDOCX) }
+                        Button("Make a PDF") { run(pdfFromText) }
                     } else {
                         Button("Make a PDF") { run(pdfFromText) }
                         Button("Clean up text (.txt)") { run(cleanText) }
@@ -60,8 +65,15 @@ struct ConvertView: View {
         return out
     }
 
+    private func textFromDOCX(_ url: URL) throws -> URL {
+        let text = try ZipExtract.docxText(Data(contentsOf: url))
+        let out = tempURL(ext: "txt")
+        try text.write(to: out, atomically: true, encoding: .utf8)
+        return out
+    }
+
     private func pdfFromText(_ url: URL) throws -> URL {
-        let text = try readText(url)
+        let text = isDOCX ? try ZipExtract.docxText(Data(contentsOf: url)) : try readText(url)
         let out = tempURL(ext: "pdf")
         let page = CGRect(x: 0, y: 0, width: 612, height: 792)
         let body = page.insetBy(dx: 48, dy: 56)

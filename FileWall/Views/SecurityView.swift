@@ -20,6 +20,7 @@ struct SecurityView: View {
     @AppStorage(Pref.watchSync) private var watchSync = Pref.defaultWatchSync
     @AppStorage(Pref.documentPreviews) private var documentPreviews = Pref.defaultDocumentPreviews
     @AppStorage(Pref.dailyBackup) private var dailyBackup = false
+    @AppStorage(AIConsent.allFilesKey) private var aiAllowAll = false
 
     @State private var storage: StorageBreakdown?
     @State private var backupStatus: String?
@@ -40,6 +41,7 @@ struct SecurityView: View {
             navigationSection
             storageSection
             autoLockSection
+            aiSection
             hiddenVaultSection
             privacySection
             localArchiveSection
@@ -71,6 +73,16 @@ struct SecurityView: View {
     }
 
     // MARK: Appearance
+
+    private var aiSection: some View {
+        Section {
+            Toggle("Let Ask AI see my files", isOn: $aiAllowAll)
+        } header: {
+            Text("Ask AI")
+        } footer: {
+            Text("When on, Gemini can read your visible files when you ask a question, without asking each time. Hidden files always ask first.")
+        }
+    }
 
     private var appearanceSection: some View {
         Section("Appearance") {
