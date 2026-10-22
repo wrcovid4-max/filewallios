@@ -20,6 +20,7 @@ struct ItemDetailView: View {
     #if os(iOS)
     @State private var showFullScreen = false
     @State private var showMarkup = false
+    @State private var showAI = false
     #endif
 
     var body: some View {
@@ -47,6 +48,9 @@ struct ItemDetailView: View {
                     }
                     Divider()
                     #endif
+                    Button { showAI = true } label: {
+                        Label("Ask AI", systemImage: "sparkles")
+                    }
                     if let previewURL {
                         ShareLink("Export a Copy", item: previewURL)
                     }
@@ -60,6 +64,7 @@ struct ItemDetailView: View {
         #if os(iOS)
         .fullScreenCover(isPresented: $showFullScreen) { fullScreenViewer }
         .fullScreenCover(isPresented: $showMarkup) { markupEditor }
+        .sheet(isPresented: $showAI) { AskAISheet(item: item, side: side) }
         #endif
     }
 
