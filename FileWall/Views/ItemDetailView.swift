@@ -21,6 +21,7 @@ struct ItemDetailView: View {
     #if os(iOS)
     @State private var showFullScreen = false
     @State private var showMarkup = false
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var showAI = false
     @State private var showConvert = false
     @State private var unzipResult: String?
@@ -74,7 +75,9 @@ struct ItemDetailView: View {
         .task { await prepare() }
         #if os(iOS)
         .fullScreenCover(isPresented: $showFullScreen) { fullScreenViewer }
-        .fullScreenCover(isPresented: $showMarkup) { markupEditor }
+        // iPad: markup opens as a sheet over the split view, so the grid and preview stay visible.
+        .fullScreenCover(isPresented: Binding(get: { showMarkup && sizeClass != .regular }, set: { showMarkup = $0 })) { markupEditor }
+        .sheet(isPresented: Binding(get: { showMarkup && sizeClass == .regular }, set: { showMarkup = $0 })) { markupEditor }
         .sheet(isPresented: $showAI) { AskAISheet(item: item, side: side) }
         .sheet(isPresented: $showConvert) { if let previewURL { ConvertView(sourceURL: previewURL) } }
         .alert(unzipResult ?? "", isPresented: Binding(get: { unzipResult != nil }, set: { if !$0 { unzipResult = nil } })) {
