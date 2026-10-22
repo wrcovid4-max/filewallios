@@ -165,6 +165,8 @@ struct VaultGridView: View {
         if isSelecting {
             let picked = selectedIDs.contains(item.id)
             Button { toggleSelect(item.id) } label: { FileTile(item: item, side: side) }
+            .draggable(VaultFileTransfer(item: item, side: side))
+            .hoverEffect(.highlight)
                 .buttonStyle(.plain)
                 .overlay(alignment: .topTrailing) {
                     Image(systemName: picked ? "checkmark.circle.fill" : "circle")
@@ -178,6 +180,8 @@ struct VaultGridView: View {
                 }
         } else if let selection {
             Button { selection.wrappedValue = item } label: { FileTile(item: item, side: side) }
+            .draggable(VaultFileTransfer(item: item, side: side))
+            .hoverEffect(.highlight)
                 .buttonStyle(.plain)
                 .overlay {
                     if selection.wrappedValue?.id == item.id {
@@ -186,6 +190,8 @@ struct VaultGridView: View {
                 }
         } else {
             NavigationLink { ItemDetailView(item: item, side: side) } label: { FileTile(item: item, side: side) }
+            .draggable(VaultFileTransfer(item: item, side: side))
+            .hoverEffect(.highlight)
                 .buttonStyle(.plain)
         }
     }
