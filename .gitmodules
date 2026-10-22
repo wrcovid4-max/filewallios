@@ -1,0 +1,3 @@
+[submodule "libs/filewall-kit"]
+	path = libs/filewall-kit
+	url = https://github.com/wrcovid4-max/wrcovid4-max-filewall-kit.git

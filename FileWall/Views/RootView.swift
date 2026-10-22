@@ -21,6 +21,7 @@ struct RootView: View {
     var body: some View {
         adaptiveContent
             .preferredColorScheme(appearance.colorScheme)
+            .languageSelection()
             .overlay { screenObscuringOverlay }
             .onChange(of: scenePhase) { phase in
                 switch phase {

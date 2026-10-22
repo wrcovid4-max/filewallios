@@ -33,6 +33,8 @@ enum FileWallLink {
 /// the views and direct `UserDefaults` reads in non-view code (PhoneWatchSession,
 /// AppState) use the exact same strings.
 enum Pref {
+    /// Language tag picked from the 🌐 menu. Empty means English.
+    static let language = "app_language"
     static let appearance = "pref.appearance"
     static let allowScreenshots = "pref.allowScreenshots"
     static let watchSync = "pref.watchSync"
