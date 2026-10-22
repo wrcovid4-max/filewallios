@@ -15,6 +15,24 @@
             "state": "translated",
             "value": "کے بارے میں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درباره"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حول"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关于"
+          }
         }
       }
     },
@@ -30,6 +48,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "رسائی"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دسترس‌پذیری"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إمكانية الوصول"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无障碍"
           }
         }
       }
@@ -47,6 +83,24 @@
             "state": "translated",
             "value": "تمام اقسام"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "همه انواع"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كل الأنواع"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有类型"
+          }
         }
       }
     },
@@ -62,6 +116,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "اجازت دیں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اجازه دادن"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السماح"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许"
           }
         }
       }
@@ -79,6 +151,24 @@
             "state": "translated",
             "value": "اسکرین شاٹس کی اجازت دیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اجازه اسکرین‌شات"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السماح بلقطات الشاشة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许截屏"
+          }
         }
       }
     },
@@ -94,6 +184,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "ظاہری شکل"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ظاهر"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المظهر"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外观"
           }
         }
       }
@@ -111,6 +219,24 @@
             "state": "translated",
             "value": "Apple بیٹا پروگرام"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برنامه بتای Apple"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برنامج Apple التجريبي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple 测试版计划"
+          }
         }
       }
     },
@@ -126,6 +252,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "آرکائیو"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بایگانی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأرشيف"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "归档"
           }
         }
       }
@@ -143,6 +287,24 @@
             "state": "translated",
             "value": "آرکائیو پاس فریز"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عبارت بایگانی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عبارة مرور الأرشيف"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "归档口令"
+          }
         }
       }
     },
@@ -158,6 +320,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "AI سے پوچھیں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "از AI بپرس"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسأل الذكاء الاصطناعي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "询问 AI"
           }
         }
       }
@@ -175,6 +355,24 @@
             "state": "translated",
             "value": "اس فائل کے بارے میں پوچھیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درباره این فایل بپرسید"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسأل عن هذا الملف"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "询问此文件"
+          }
         }
       }
     },
@@ -190,6 +388,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "تصدیق ناکام ہوئی۔ دوبارہ کوشش کریں۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "احراز هویت ناموفق بود. دوباره امتحان کنید."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فشلت المصادقة. حاول مرة أخرى."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "验证失败，请重试。"
           }
         }
       }
@@ -207,6 +423,24 @@
             "state": "translated",
             "value": "ابھی بیک اپ کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "همین حالا پشتیبان‌گیری کن"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النسخ الاحتياطي الآن"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即备份"
+          }
         }
       }
     },
@@ -222,6 +456,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "روزانہ بیک اپ"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پشتیبان‌گیری روزانه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نسخ احتياطي يومي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每日备份"
           }
         }
       }
@@ -239,6 +491,24 @@
             "state": "translated",
             "value": "سائن ان کرکے آپ ہماری شرائط سے اتفاق کرتے ہیں۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "با ورود، با شرایط ما موافقت می‌کنید."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بتسجيل الدخول، فإنك توافق على شروطنا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登录即表示您同意我们的条款。"
+          }
         }
       }
     },
@@ -254,6 +524,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "منسوخ کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لغو"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلغاء"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
           }
         }
       }
@@ -271,6 +559,24 @@
             "state": "translated",
             "value": "متن صاف کریں (.txt)"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پاک‌سازی متن (.txt)"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنظيف النص (.txt)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清理文本 (.txt)"
+          }
         }
       }
     },
@@ -286,6 +592,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "کلاؤڈ بیک اپ اور سنک"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پشتیبان و همگام‌سازی ابری"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النسخ الاحتياطي والمزامنة السحابية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "云备份与同步"
           }
         }
       }
@@ -303,6 +627,24 @@
             "state": "translated",
             "value": "مسلسل"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیوسته"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متصل"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "连续"
+          }
         }
       }
     },
@@ -318,6 +660,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "تبدیل کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبدیل"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحويل"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "转换"
           }
         }
       }
@@ -335,6 +695,24 @@
             "state": "translated",
             "value": "تبدیل کریں…"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبدیل…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحويل…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "转换…"
+          }
         }
       }
     },
@@ -350,6 +728,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "بنائیں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ایجاد"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إنشاء"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建"
           }
         }
       }
@@ -367,6 +763,24 @@
             "state": "translated",
             "value": "حذف کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除"
+          }
         }
       }
     },
@@ -382,6 +796,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "فولڈر حذف کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف پوشه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف المجلد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除文件夹"
           }
         }
       }
@@ -399,6 +831,24 @@
             "state": "translated",
             "value": "فولڈر حذف کریں؟"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پوشه حذف شود؟"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف المجلد؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除文件夹？"
+          }
         }
       }
     },
@@ -414,6 +864,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "ہمیشہ کے لیے حذف کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف دائمی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف نهائي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久删除"
           }
         }
       }
@@ -431,6 +899,24 @@
             "state": "translated",
             "value": "ہمیشہ کے لیے حذف کریں؟"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای همیشه حذف شود؟"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف نهائي؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久删除？"
+          }
         }
       }
     },
@@ -446,6 +932,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "دستاویز کی پیش نظارہ"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیش‌نمایش اسناد"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "معاينات المستندات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文档预览"
           }
         }
       }
@@ -463,6 +967,24 @@
             "state": "translated",
             "value": "ہو گیا"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انجام شد"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
         }
       }
     },
@@ -478,6 +1000,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "خالی"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خالی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فارغ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "空"
           }
         }
       }
@@ -495,6 +1035,24 @@
             "state": "translated",
             "value": "حال ہی میں حذف شدہ خالی کریں؟"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اخیراً حذف‌شده‌ها خالی شود؟"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إفراغ المحذوفة مؤخرًا؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清空“最近删除”？"
+          }
         }
       }
     },
@@ -510,6 +1068,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "خفیہ آرکائیو"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بایگانی رمزگذاری‌شده"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأرشيف المشفّر"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加密归档"
           }
         }
       }
@@ -527,6 +1103,24 @@
             "state": "translated",
             "value": "آپ کے آلے سے نکلنے سے پہلے خفیہ کیا جاتا ہے اور FileWall کی Android ایپ کے ساتھ ایک بیک اپ شیئر کرتا ہے۔ آپ کے Google اکاؤنٹ جتنا محفوظ۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیش از خروج از دستگاه شما رمزگذاری می‌شود و یک نسخه پشتیبان با برنامه Android فایل‌وال به اشتراک می‌گذارد. به اندازه حساب Google شما امن."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُشفَّر قبل أن تغادر جهازك وتشارك نسخة احتياطية واحدة مع تطبيق FileWall على Android. آمنة بقدر حساب Google الخاص بك."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在离开您的设备前即已加密，并与 FileWall Android 应用共享同一份备份。与您的 Google 账户一样安全。"
+          }
         }
       }
     },
@@ -542,6 +1136,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "وہ پاس فریز درج کریں جس کے ساتھ یہ .fwvault ایکسپورٹ ہوئی تھی۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عبارت عبوری را وارد کنید که این .fwvault با آن صادر شده است."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أدخل عبارة المرور التي صُدِّر بها ملف .fwvault هذا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入导出此 .fwvault 时使用的口令。"
           }
         }
       }
@@ -559,6 +1171,24 @@
             "state": "translated",
             "value": "ایکسپورٹ"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خروجی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصدير"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导出"
+          }
         }
       }
     },
@@ -574,6 +1204,24 @@
           "stringUnit": {
             "state": "translated",
             "value": ".fwvault ایکسپورٹ کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خروجی .fwvault"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصدير .fwvault"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导出 .fwvault"
           }
         }
       }
@@ -591,6 +1239,24 @@
             "state": "translated",
             "value": "ایکسپورٹ پاس فریز"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عبارت خروجی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عبارة مرور التصدير"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导出口令"
+          }
         }
       }
     },
@@ -606,6 +1272,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "ایک کاپی ایکسپورٹ کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خروجی یک نسخه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصدير نسخة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导出副本"
           }
         }
       }
@@ -623,6 +1307,24 @@
             "state": "translated",
             "value": "پورے والٹ کو ایک پاس فریز سے محفوظ .fwvault فائل کے طور پر ایکسپورٹ کریں (فائلز میں محفوظ کریں)، یا ایک بحال کریں۔ FileWall کی Android ایپ جیسا فارمیٹ۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کل گاوصندوق را به‌صورت یک فایل .fwvault محافظت‌شده با عبارت عبور صادر کنید (ذخیره در فایل‌ها)، یا یکی را بازیابی کنید. همان قالب برنامه Android فایل‌وال."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صدّر الخزنة كاملة كملف .fwvault واحد محمي بعبارة مرور (حفظ في الملفات)، أو استعد ملفًا. بالصيغة نفسها لتطبيق FileWall على Android."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将整个保险库导出为单个受口令保护的 .fwvault 文件（存储到“文件”），或恢复一个。与 FileWall Android 应用格式相同。"
+          }
         }
       }
     },
@@ -638,6 +1340,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "توسیع شدہ حقیقت"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "واقعیت توسعه‌یافته"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الواقع الممتد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扩展现实"
           }
         }
       }
@@ -655,6 +1375,24 @@
             "state": "translated",
             "value": "متن نکالیں (.txt)"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخراج متن (.txt)"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخراج النص (.txt)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提取文本 (.txt)"
+          }
         }
       }
     },
@@ -670,6 +1408,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "FileWall ویب سائٹ"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وب‌سایت FileWall"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موقع FileWall"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "FileWall 网站"
           }
         }
       }
@@ -687,6 +1443,24 @@
             "state": "translated",
             "value": "فائلیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فایل‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الملفات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件"
+          }
         }
       }
     },
@@ -702,6 +1476,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "فولڈر کا نام"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نام پوشه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسم المجلد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件夹名称"
           }
         }
       }
@@ -719,6 +1511,24 @@
             "state": "translated",
             "value": "پوری اسکرین"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمام‌صفحه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ملء الشاشة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全屏"
+          }
         }
       }
     },
@@ -734,6 +1544,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "FileWall حاصل کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دریافت FileWall"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "احصل على FileWall"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "获取 FileWall"
           }
         }
       }
@@ -751,6 +1579,24 @@
             "state": "translated",
             "value": "مدد"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "راهنما"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مساعدة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帮助"
+          }
         }
       }
     },
@@ -766,6 +1612,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "چھپی ہوئی"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پنهان"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مخفي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏"
           }
         }
       }
@@ -783,6 +1647,24 @@
             "state": "translated",
             "value": "چھپا ہوا والٹ"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "گاوصندوق پنهان"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخزنة المخفية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏保险库"
+          }
         }
       }
     },
@@ -798,6 +1680,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "فائلیں درآمد کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درون‌ریزی فایل‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استيراد الملفات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导入文件"
           }
         }
       }
@@ -815,6 +1715,24 @@
             "state": "translated",
             "value": "تصاویر درآمد کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درون‌ریزی عکس‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استيراد الصور"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导入照片"
+          }
         }
       }
     },
@@ -830,6 +1748,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "غیر فعالی پر خودکار لاک"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قفل خودکار با بی‌فعالیتی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القفل التلقائي عند الخمول"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无操作自动锁定"
           }
         }
       }
@@ -847,6 +1783,24 @@
             "state": "translated",
             "value": "زبانیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زبان‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اللغات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "语言"
+          }
         }
       }
     },
@@ -863,6 +1817,24 @@
             "state": "translated",
             "value": "ترتیب"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چیدمان"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التخطيط"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "布局"
+          }
         }
       }
     },
@@ -872,6 +1844,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "قانونی"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قانونی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قانوني"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "法律"
           }
         }
       }
@@ -889,6 +1879,24 @@
             "state": "translated",
             "value": "AI کو میری فائلیں دیکھنے دیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اجازه بده «از AI بپرس» فایل‌هایم را ببیند"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السماح لـ«اسأل الذكاء الاصطناعي» برؤية ملفاتي"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许“询问 AI”查看我的文件"
+          }
         }
       }
     },
@@ -904,6 +1912,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "چھپا ہوا والٹ ابھی لاک کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "همین حالا گاوصندوق پنهان را قفل کن"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قفل الخزنة المخفية الآن"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即锁定隐藏保险库"
           }
         }
       }
@@ -921,6 +1947,24 @@
             "state": "translated",
             "value": "اس کے بعد لاک کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قفل پس از"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القفل بعد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "锁定时间"
+          }
         }
       }
     },
@@ -936,6 +1980,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "اس غیر فعالی کے وقت کے بعد چھپا ہوا والٹ لاک ہو جاتا ہے۔ ایپ پس منظر میں جائے تو والٹ ہمیشہ لاک ہو جاتا ہے۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "گاوصندوق پنهان پس از این مدت بی‌فعالی قفل می‌شود. گاوصندوق همچنین هنگام رفتن برنامه به پس‌زمینه همیشه قفل می‌شود."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُقفل الخزنة المخفية بعد مدة الخمول هذه. كما تُقفل الخزنة دائمًا عندما ينتقل التطبيق إلى الخلفية."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏保险库在空闲此时长后锁定。应用进入后台时保险库也总会锁定。"
           }
         }
       }
@@ -953,6 +2015,24 @@
             "state": "translated",
             "value": "PDF بنائیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ساخت PDF"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إنشاء PDF"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "制作 PDF"
+          }
         }
       }
     },
@@ -968,6 +2048,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "نشان زدگی"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نشان‌گذاری"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التعليق"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "标记"
           }
         }
       }
@@ -985,6 +2083,24 @@
             "state": "translated",
             "value": "فولڈر میں منتقل کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتقال به پوشه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نقل إلى مجلد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移至文件夹"
+          }
         }
       }
     },
@@ -1000,6 +2116,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "نام"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نام"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاسم"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名称"
           }
         }
       }
@@ -1017,6 +2151,24 @@
             "state": "translated",
             "value": "نیویگیشن"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیمایش"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التنقل"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导航"
+          }
         }
       }
     },
@@ -1032,6 +2184,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "نیا فولڈر"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پوشه جدید"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مجلد جديد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新建文件夹"
           }
         }
       }
@@ -1049,6 +2219,24 @@
             "state": "translated",
             "value": "کوئی فولڈر نہیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بدون پوشه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بدون مجلد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无文件夹"
+          }
         }
       }
     },
@@ -1064,6 +2252,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "ابھی کوئی چیٹ نہیں۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هنوز چتی نیست."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد محادثات بعد."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没有聊天。"
           }
         }
       }
@@ -1081,6 +2287,24 @@
             "state": "translated",
             "value": "ابھی نہیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الان نه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ليس الآن"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂不"
+          }
         }
       }
     },
@@ -1096,6 +2320,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "ٹھیک ہے"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "باشه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موافق"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
           }
         }
       }
@@ -1113,6 +2355,24 @@
             "state": "translated",
             "value": "پیش نظارہ کھولیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "باز کردن پیش‌نمایش"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح المعاينة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开预览"
+          }
         }
       }
     },
@@ -1128,6 +2388,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "جائزہ"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نمای کلی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نظرة عامة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "概览"
           }
         }
       }
@@ -1145,6 +2423,24 @@
             "state": "translated",
             "value": "صفحہ"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صفحه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صفحة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "页"
+          }
         }
       }
     },
@@ -1160,6 +2456,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "اس والٹ کے حال ہی میں حذف شدہ میں موجود ہر چیز مستقل طور پر مٹا دیں۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "همه چیز در «حذف‌شده‌های اخیر» این گاوصندوق را برای همیشه پاک کنید."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "امسح نهائيًا كل ما في المحذوفة مؤخرًا لهذه الخزنة."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久清除此保险库“最近删除”中的所有内容。"
           }
         }
       }
@@ -1177,6 +2491,24 @@
             "state": "translated",
             "value": "تصاویر"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عکس‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصور"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "照片"
+          }
         }
       }
     },
@@ -1192,6 +2524,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "پلیٹ فارمز"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پلتفرم‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المنصات"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "平台"
           }
         }
       }
@@ -1209,6 +2559,24 @@
             "state": "translated",
             "value": "رازداری"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حریم خصوصی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخصوصية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐私"
+          }
         }
       }
     },
@@ -1224,6 +2592,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "رازداری کی پالیسی"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سیاست حریم خصوصی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سياسة الخصوصية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐私政策"
           }
         }
       }
@@ -1241,6 +2627,24 @@
             "state": "translated",
             "value": "شیئر کرنے کے لیے تیار"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آماده اشتراک‌گذاری"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جاهز للمشاركة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可以分享"
+          }
         }
       }
     },
@@ -1256,6 +2660,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "حالیہ چیٹس"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چت‌های اخیر"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المحادثات الأخيرة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近的聊天"
           }
         }
       }
@@ -1273,6 +2695,24 @@
             "state": "translated",
             "value": "آرکائیو سے نکالیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف از بایگانی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إزالة من الأرشيف"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移出归档"
+          }
         }
       }
     },
@@ -1288,6 +2728,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "نام بدلیں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغییر نام"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة التسمية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重命名"
           }
         }
       }
@@ -1305,6 +2763,24 @@
             "state": "translated",
             "value": "فولڈر کا نام بدلیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغییر نام پوشه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة تسمية المجلد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重命名文件夹"
+          }
         }
       }
     },
@@ -1320,6 +2796,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "صرف بایومیٹرکس کی ضرورت"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فقط استفاده از بایومتریک"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المصادقة البيومترية فقط"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅需生物识别"
           }
         }
       }
@@ -1337,6 +2831,24 @@
             "state": "translated",
             "value": "بحال کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بازیابی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استعادة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复"
+          }
         }
       }
     },
@@ -1352,6 +2864,24 @@
           "stringUnit": {
             "state": "translated",
             "value": ".fwvault سے بحال کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بازیابی از .fwvault"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استعادة من .fwvault"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从 .fwvault 恢复"
           }
         }
       }
@@ -1369,6 +2899,24 @@
             "state": "translated",
             "value": "بیک اپ سے بحال کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بازیابی از پشتیبان"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استعادة من النسخة الاحتياطية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从备份恢复"
+          }
         }
       }
     },
@@ -1384,6 +2932,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "محفوظ کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存"
           }
         }
       }
@@ -1401,6 +2967,24 @@
             "state": "translated",
             "value": "محفوظ کریں یا شیئر کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره یا اشتراک‌گذاری"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ أو مشاركة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存或分享"
+          }
         }
       }
     },
@@ -1416,6 +3000,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "فولڈر میں محفوظ کریں…"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره در پوشه…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ في مجلد…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存到文件夹…"
           }
         }
       }
@@ -1433,6 +3035,24 @@
             "state": "translated",
             "value": "اسکرین شاٹ تصاویر میں محفوظ ہو گیا"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسکرین‌شات در عکس‌ها ذخیره شد"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم حفظ لقطة الشاشة في الصور"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "截图已保存到“照片”"
+          }
         }
       }
     },
@@ -1448,6 +3068,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "اسکرین شاٹس"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسکرین‌شات‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لقطات الشاشة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "截屏"
           }
         }
       }
@@ -1465,6 +3103,24 @@
             "state": "translated",
             "value": "اسکرین شاٹس بند ہوں تو والٹ کا مواد ایپ سوئچر کی جھلک اور اسکرین ریکارڈنگ میں نہیں آتا۔ Apple Watch سنک صرف غیر چھپی فائلیں واچ پر بھیجتا ہے۔ دستاویز کی پیش نظارہ PDF کا پہلا صفحہ ٹائل پر دکھاتا ہے۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "با خاموش بودن اسکرین‌شات، محتوای گاوصندوق در پیش‌نمایش سوئیچر برنامه و ضبط صفحه نمایش نمی‌آید. همگام‌سازی با Apple Watch فقط فایل‌های غیرپنهان را به ساعت می‌فرستد. پیش‌نمایش اسناد صفحه اول PDF را روی کاشی‌اش نشان می‌دهد."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيقاف لقطات الشاشة يُبقي محتوى الخزنة خارج معاينة مبدّل التطبيقات وتسجيلات الشاشة. تُرسل مزامنة Apple Watch الملفات غير المخفية فقط إلى الساعة. تعرض معاينات المستندات الصفحة الأولى من ملف PDF على بطاقته."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭截屏可使保险库内容不出现在多任务切换预览和屏幕录制中。Apple Watch 同步只会将未隐藏的文件同步到手表。文档预览会在其卡片上显示 PDF 的第一页。"
+          }
         }
       }
     },
@@ -1480,6 +3136,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "سیکشن"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بخش"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القسم"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "部分"
           }
         }
       }
@@ -1497,6 +3171,24 @@
             "state": "translated",
             "value": "سیکشن کا انتخاب"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب‌گر بخش"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مبدّل الأقسام"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换栏"
+          }
         }
       }
     },
@@ -1512,6 +3204,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "سیکیورٹی"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "امنیت"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأمان"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全"
           }
         }
       }
@@ -1529,6 +3239,24 @@
             "state": "translated",
             "value": "پیش نظارہ کے لیے کوئی آئٹم منتخب کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای پیش‌نمایش یک مورد انتخاب کنید"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختر عنصرًا للمعاينة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择一个项目以预览"
+          }
         }
       }
     },
@@ -1544,6 +3272,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Google Gemini کو بھیجیں؟"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "به Google Gemini ارسال شود؟"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإرسال إلى Google Gemini؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发送给 Google Gemini？"
           }
         }
       }
@@ -1561,6 +3307,24 @@
             "state": "translated",
             "value": "شیئر کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اشتراک‌گذاری"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مشاركة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享"
+          }
         }
       }
     },
@@ -1576,6 +3340,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "والٹ / چھپی / سیکیورٹی کا انتخاب بائیں سائڈ بار میں (آپ کے فولڈرز اس کے نیچے) یا اوپر مرکز میں ایک پٹی کے طور پر دکھائیں۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نمایش انتخاب‌گر گاوصندوق / پنهان / امنیت در نوار کناری چپ (با پوشه‌هایتان زیر آن) یا به‌صورت نوار وسط‌چین در بالا."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أظهر مبدّل الخزنة / المخفي / الأمان في شريط جانبي أيسر (مع مجلداتك أسفله) أو كشريط في المنتصف أعلى الشاشة."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将“保险库 / 隐藏 / 安全”切换栏显示在左侧边栏（文件夹位于其下）或顶部居中的横栏中。"
           }
         }
       }
@@ -1593,6 +3375,24 @@
             "state": "translated",
             "value": "سائن آؤٹ"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خروج"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الخروج"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退出登录"
+          }
         }
       }
     },
@@ -1608,6 +3408,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Google سے سائن ان کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ورود با Google"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الدخول باستخدام Google"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用 Google 登录"
           }
         }
       }
@@ -1625,6 +3443,24 @@
             "state": "translated",
             "value": "ایک صفحہ"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "یک صفحه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صفحة واحدة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "单页"
+          }
         }
       }
     },
@@ -1640,6 +3476,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "رفتار"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرعت"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السرعة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "速度"
           }
         }
       }
@@ -1657,6 +3511,24 @@
             "state": "translated",
             "value": "اسٹوریج"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فضای ذخیره‌سازی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التخزين"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存储"
+          }
         }
       }
     },
@@ -1672,6 +3544,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "سپورٹ"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پشتیبانی"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الدعم"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支持"
           }
         }
       }
@@ -1689,6 +3579,24 @@
             "state": "translated",
             "value": "تبدیل کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغییر"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبديل"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换"
+          }
         }
       }
     },
@@ -1704,6 +3612,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "زبان تبدیل کریں؟"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زبان تغییر کند؟"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبديل اللغة؟"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换语言？"
           }
         }
       }
@@ -1721,6 +3647,24 @@
             "state": "translated",
             "value": "Apple Watch سے سنک کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "همگام‌سازی با Apple Watch"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المزامنة مع Apple Watch"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "同步到 Apple Watch"
+          }
         }
       }
     },
@@ -1736,6 +3680,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "کوئی تجویز منتخب کریں، یا اپنا سوال ٹائپ کریں۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "یک پیشنهاد را بزنید یا سؤال خود را تایپ کنید."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط اقتراحًا، أو اكتب سؤالك."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点击一条建议，或输入您自己的问题。"
           }
         }
       }
@@ -1753,6 +3715,24 @@
             "state": "translated",
             "value": "استعمال کی شرائط"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شرایط استفاده"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شروط الاستخدام"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用条款"
+          }
         }
       }
     },
@@ -1768,6 +3748,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "فولڈر ہٹا دیا جائے گا۔ اس کی فائلیں حذف نہیں ہوں گی — وہ واپس اصل والٹ میں چلی جائیں گی۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پوشه حذف می‌شود. فایل‌های آن پاک نمی‌شوند — به گاوصندوق اصلی برمی‌گردند."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتم إزالة المجلد. لا تُحذف ملفاته — بل تعود إلى الخزنة الرئيسية."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "该文件夹将被移除。其中的文件不会被删除，而是移回主保险库。"
           }
         }
       }
@@ -1785,6 +3783,24 @@
             "state": "translated",
             "value": "تھیم"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زمینه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السمة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "主题"
+          }
         }
       }
     },
@@ -1800,6 +3816,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "یہ واپس نہیں ہو سکتا۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "این کار قابل بازگشت نیست."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يمكن التراجع عن هذا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此操作无法撤销。"
           }
         }
       }
@@ -1817,6 +3851,24 @@
             "state": "translated",
             "value": "یہ ایک AI ہے اور غلطیاں کر سکتا ہے۔ یہاں استعمال ہونے والا ماڈل Google Inc. کا Gemini ہے۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "این یک هوش مصنوعی است و ممکن است اشتباه کند. مدل استفاده‌شده Gemini از Google Inc. است."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هذا ذكاء اصطناعي وقد يرتكب أخطاء. النموذج المستخدم هنا هو Gemini من Google Inc."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这是 AI，可能会出错。此处使用的模型是 Google Inc. 的 Gemini。"
+          }
         }
       }
     },
@@ -1832,6 +3884,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "ٹریڈمارک"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "علائم تجاری"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "العلامات التجارية"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "商标"
           }
         }
       }
@@ -1849,6 +3919,24 @@
             "state": "translated",
             "value": "دو صفحات"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دو صفحه"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صفحتان"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "双页"
+          }
         }
       }
     },
@@ -1864,6 +3952,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "قسم"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نوع"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النوع"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "类型"
           }
         }
       }
@@ -1881,6 +3987,24 @@
             "state": "translated",
             "value": "اپنا سوال ٹائپ کریں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سؤال خود را تایپ کنید"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اكتب سؤالك"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入您的问题"
+          }
         }
       }
     },
@@ -1896,6 +4020,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "واپس کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "واگرد"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تراجع"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "撤销"
           }
         }
       }
@@ -1913,6 +4055,24 @@
             "state": "translated",
             "value": "کھولیں"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "باز کردن قفل"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح القفل"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "解锁"
+          }
         }
       }
     },
@@ -1928,6 +4088,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "ان زپ کریں"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "از حالت فشرده خارج کردن"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فك الضغط"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "解压"
           }
         }
       }
@@ -1945,6 +4123,24 @@
             "state": "translated",
             "value": "والٹ"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "گاوصندوق"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخزنة"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保险库"
+          }
         }
       }
     },
@@ -1960,6 +4156,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "نیا کیا ہے"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تازه‌ها"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما الجديد"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新功能"
           }
         }
       }
@@ -1977,6 +4191,24 @@
             "state": "translated",
             "value": "جب آن ہو تو سوال پوچھنے پر Gemini آپ کی نظر آنے والی فائلیں ہر بار پوچھے بغیر پڑھ سکتا ہے۔ چھپی ہوئی فائلیں ہمیشہ پہلے پوچھتی ہیں۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وقتی روشن باشد، Gemini می‌تواند هنگام پرسیدن سؤال فایل‌های قابل‌مشاهده شما را بخواند، بدون پرسیدن هر بار. فایل‌های پنهان همیشه ابتدا می‌پرسند."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عند التشغيل، يمكن لـGemini قراءة ملفاتك المرئية عند طرح سؤال، دون السؤال في كل مرة. تسأل الملفات المخفية دائمًا أولًا."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开启后，提问时 Gemini 可以读取您可见的文件，无需每次询问。隐藏文件始终会先询问。"
+          }
         }
       }
     },
@@ -1992,6 +4224,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "یہ بند ہو تو Face ID یا Touch ID آپ کے آلے کے پاس کوڈ پر واپس آ جاتا ہے۔ آن ہو تو صرف بایومیٹرکس چھپا ہوا والٹ کھول سکتا ہے۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "با خاموش بودن این، Face ID یا Touch ID به رمز عبور دستگاه برمی‌گردد. با روشن بودن، فقط بایومتریک می‌تواند گاوصندوق پنهان را باز کند."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عند إيقافه، يعود Face ID أو Touch ID إلى رمز جهازك. وعند تشغيله، لا تفتح الخزنة المخفية إلا القياسات الحيوية."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭时，Face ID 或 Touch ID 会退回使用设备密码。开启时，只有生物识别可以解锁隐藏保险库。"
           }
         }
       }
@@ -2009,6 +4259,24 @@
             "state": "translated",
             "value": "آپ کا خفیہ آرکائیو تیار ہے۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بایگانی رمزگذاری‌شده شما آماده است."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أرشيفك المشفّر جاهز."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您的加密归档已准备就绪。"
+          }
         }
       }
     },
@@ -2024,6 +4292,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "آپ کی فائلیں اور ترتیبات محفوظ رہیں گی۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فایل‌ها و تنظیمات شما حفظ می‌شوند."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ستبقى ملفاتك وإعداداتك محفوظة."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您的文件和设置将被保留。"
           }
         }
       }
@@ -2041,6 +4327,24 @@
             "state": "translated",
             "value": "آپ کی فائلیں، اس آلے پر خفیہ۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فایل‌های شما، رمزگذاری‌شده روی همین دستگاه."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ملفاتك، مشفّرة على هذا الجهاز."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您的文件已在此设备上加密。"
+          }
         }
       }
     },
@@ -2056,6 +4360,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "آپ کا والٹ خالی ہے۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "گاوصندوق شما خالی است."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خزنتك فارغة."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您的保险库是空的。"
           }
         }
       }
@@ -2073,6 +4395,24 @@
             "state": "translated",
             "value": "آرکائیو بحال کرنے کے لیے یہ پاس فریز درکار ہوگا۔ یہ کہیں محفوظ نہیں کیا جاتا۔"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای بازیابی بایگانی به این عبارت نیاز دارید. جایی ذخیره نمی‌شود."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ستحتاج إلى عبارة المرور هذه لاستعادة الأرشيف. لا تُخزَّن في أي مكان."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复归档时需要此口令。它不会保存在任何地方。"
+          }
         }
       }
     },
@@ -2088,6 +4428,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "iOS اسکرین شاٹس نہیں روک سکتا۔ جو کچھ اسکرین پر تھا اس کی تصویر اب آپ کی فوٹو لائبریری میں موجود ہے۔"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS نمی‌تواند اسکرین‌شات را مسدود کند. اکنون تصویری از آنچه روی صفحه بود در کتابخانه عکس شما وجود دارد."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يستطيع iOS منع لقطات الشاشة. توجد الآن صورة لما كان على الشاشة في مكتبة صورك."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 无法阻止截屏。屏幕上的内容现已保存在您的照片图库中。"
           }
         }
       }
