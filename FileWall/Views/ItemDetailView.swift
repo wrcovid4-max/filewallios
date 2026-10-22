@@ -21,6 +21,7 @@ struct ItemDetailView: View {
     @State private var showFullScreen = false
     @State private var showMarkup = false
     @State private var showAI = false
+    @State private var showConvert = false
     #endif
 
     var body: some View {
@@ -51,6 +52,9 @@ struct ItemDetailView: View {
                     Button { showAI = true } label: {
                         Label("Ask AI", systemImage: "sparkles")
                     }
+                    Button { showConvert = true } label: {
+                        Label("Convert…", systemImage: "arrow.triangle.2.circlepath")
+                    }
                     if let previewURL {
                         ShareLink("Export a Copy", item: previewURL)
                     }
@@ -65,6 +69,7 @@ struct ItemDetailView: View {
         .fullScreenCover(isPresented: $showFullScreen) { fullScreenViewer }
         .fullScreenCover(isPresented: $showMarkup) { markupEditor }
         .sheet(isPresented: $showAI) { AskAISheet(item: item, side: side) }
+        .sheet(isPresented: $showConvert) { if let previewURL { ConvertView(sourceURL: previewURL) } }
         #endif
     }
 
@@ -77,6 +82,8 @@ struct ItemDetailView: View {
             Group {
                 if item.category == .photo, let imageData, let image = Image(vaultData: imageData) {
                     ZoomableImage(image: image)
+                } else if let previewURL, MediaPlayerView.handles(previewURL) {
+                    MediaPlayerView(url: previewURL)
                 } else if let previewURL {
                     QuickLookView(url: previewURL).ignoresSafeArea()
                 } else {
