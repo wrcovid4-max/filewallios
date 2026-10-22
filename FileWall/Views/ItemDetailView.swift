@@ -25,6 +25,7 @@ struct ItemDetailView: View {
     @State private var showAI = false
     @State private var showConvert = false
     @State private var unzipResult: String?
+    @State private var showFolderPicker = false
     #endif
 
     var body: some View {
@@ -63,6 +64,9 @@ struct ItemDetailView: View {
                             Label("Unzip", systemImage: "archivebox")
                         }
                     }
+                    Button { showFolderPicker = true } label: {
+                        Label("Save to Folder…", systemImage: "folder.badge.plus")
+                    }
                     if let previewURL {
                         ShareLink("Export a Copy", item: previewURL)
                     }
@@ -79,11 +83,43 @@ struct ItemDetailView: View {
         .fullScreenCover(isPresented: Binding(get: { showMarkup && sizeClass != .regular }, set: { showMarkup = $0 })) { markupEditor }
         .sheet(isPresented: Binding(get: { showMarkup && sizeClass == .regular }, set: { showMarkup = $0 })) { markupEditor }
         .sheet(isPresented: $showAI) { AskAISheet(item: item, side: side) }
+        .fileImporter(isPresented: $showFolderPicker, allowedContentTypes: [.folder]) { result in
+            if case .success(let folder) = result { Task { await saveToFolder(folder) } }
+        }
         .sheet(isPresented: $showConvert) { if let previewURL { ConvertView(sourceURL: previewURL) } }
         .alert(unzipResult ?? "", isPresented: Binding(get: { unzipResult != nil }, set: { if !$0 { unzipResult = nil } })) {
             Button("OK", role: .cancel) {}
         }
         #endif
+    }
+
+    @ViewBuilder
+    private func pdfOrQuickLook(_ url: URL) -> some View {
+        if url.pathExtension.lowercased() == "pdf" {
+            PDFReaderView(url: url, item: item, side: side)
+        } else {
+            QuickLookView(url: url)
+        }
+    }
+
+    /// Copies the decrypted file into a folder the user picks (iCloud Drive, Google Drive, ...).
+    private func saveToFolder(_ folder: URL) async {
+        let scoped = folder.startAccessingSecurityScopedResource()
+        defer { if scoped { folder.stopAccessingSecurityScopedResource() } }
+        guard let source = try? await VaultService.shared.decryptToPreviewCache(id: item.id, name: item.name, side: side) else {
+            unzipResult = "The file could not be opened."
+            return
+        }
+        let base = (item.name as NSString).deletingPathExtension
+        let ext = (item.name as NSString).pathExtension
+        let dest = folder.appendingPathComponent("\(base) \(Int(Date().timeIntervalSince1970)).\(ext)")
+        do {
+            try FileManager.default.copyItem(at: source, to: dest)
+            ExportLog.mark(item.id)
+            unzipResult = "Saved \"\(item.name)\" to the folder."
+        } catch {
+            unzipResult = "Could not save to that folder: \(error.localizedDescription)"
+        }
     }
 
     /// Unzips the zip into the same folder in the vault.
@@ -119,7 +155,7 @@ struct ItemDetailView: View {
                 } else if let previewURL, MediaPlayerView.handles(previewURL) {
                     MediaPlayerView(url: previewURL)
                 } else if let previewURL {
-                    QuickLookView(url: previewURL).ignoresSafeArea()
+                    pdfOrQuickLook(previewURL).ignoresSafeArea()
                 } else {
                     ProgressView()
                 }
@@ -187,7 +223,7 @@ struct ItemDetailView: View {
 
             #if os(iOS)
             if let previewURL {
-                NavigationLink { QuickLookView(url: previewURL) } label: {
+                NavigationLink { pdfOrQuickLook(previewURL) } label: {
                     Label("Open Preview", systemImage: "eye")
                 }
                 .buttonStyle(.borderedProminent)

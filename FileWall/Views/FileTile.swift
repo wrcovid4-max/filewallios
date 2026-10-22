@@ -24,9 +24,7 @@ struct FileTile: View {
                 if let thumbnail {
                     thumbnail.resizable().scaledToFill()
                 } else {
-                    Image(systemName: glyph)
-                        .font(.system(size: 30))
-                        .foregroundStyle(.secondary)
+                    DocPreviewGlyph(item: item, side: side, fallback: glyph)
                 }
             }
             .overlay(alignment: .bottom) {
@@ -42,6 +40,16 @@ struct FileTile: View {
                         LinearGradient(colors: [.black.opacity(0), .black.opacity(0.6)],
                                        startPoint: .top, endPoint: .bottom)
                     )
+            }
+            .overlay(alignment: .topTrailing) {
+                if ExportLog.isExported(item.id) {
+                    Image(systemName: "icloud.and.arrow.up.fill")
+                        .font(.caption)
+                        .padding(5)
+                        .foregroundStyle(.white)
+                        .background(Color.black.opacity(0.5), in: Circle())
+                        .padding(4)
+                }
             }
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .contentShape(RoundedRectangle(cornerRadius: 12))

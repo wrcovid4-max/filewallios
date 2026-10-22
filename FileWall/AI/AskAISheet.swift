@@ -42,6 +42,9 @@ struct AskAISheet: View {
     @State private var sending = false
     @State private var fileURL: URL?
     @State private var openPage: Int?
+    @State private var chatID = UUID()
+    @State private var showHistory = false
+    @StateObject private var speech = SpeechInput()
 
     var body: some View {
         NavigationView {
@@ -52,9 +55,22 @@ struct AskAISheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } }
+                if !item.isHidden {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button { showHistory = true } label: { Image(systemName: "clock.arrow.circlepath") }
+                    }
+                }
             }
         }
         .onAppear { allowed = AIConsent.allowed(for: item) }
+        .onChange(of: speech.text) { input = $0 }
+        .sheet(isPresented: $showHistory) {
+            ChatHistoryList(itemID: item.id) { chat in
+                chatID = chat.id
+                turns = chat.turns.map { GeminiClient.Turn(fromUser: $0.fromUser, text: $0.text) }
+                showHistory = false
+            }
+        }
         .task(id: allowed) { if allowed { await prepare() } }
         .sheet(isPresented: Binding(get: { openPage != nil }, set: { if !$0 { openPage = nil } })) {
             if let url = fileURL { PDFPageViewer(url: url, page: openPage ?? 1) }
@@ -115,6 +131,10 @@ struct AskAISheet: View {
             HStack {
                 TextField("Type your question", text: $input, onCommit: { send(input) })
                     .textFieldStyle(.roundedBorder)
+                Button { speech.toggle() } label: {
+                    Image(systemName: speech.listening ? "mic.fill" : "mic")
+                        .foregroundStyle(speech.listening ? Color.red : Color.accentColor)
+                }
                 Button { send(input) } label: { Image(systemName: "paperplane.fill") }
                     .disabled(sending || input.trimmingCharacters(in: .whitespaces).isEmpty)
             }
@@ -164,6 +184,14 @@ struct AskAISheet: View {
             await MainActor.run {
                 turns.append(GeminiClient.Turn(fromUser: false, text: answer))
                 sending = false
+                if !item.isHidden {
+                    ChatHistoryStore.save(SavedChat(
+                        id: chatID,
+                        title: turns.first(where: { $0.fromUser })?.text ?? "Chat",
+                        updated: Date(),
+                        turns: turns.map { StoredTurn(fromUser: $0.fromUser, text: $0.text) }
+                    ), for: item.id)
+                }
             }
         }
     }

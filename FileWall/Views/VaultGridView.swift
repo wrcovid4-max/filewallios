@@ -44,6 +44,8 @@ struct VaultGridView: View {
 
     // Bulk selection
     @State private var isSelecting = false
+    @State private var shareURLs: [URL] = []
+    @State private var showShare = false
     @State private var selectedIDs: Set<UUID> = []
     @State private var showBatchMove = false
 
@@ -83,6 +85,7 @@ struct VaultGridView: View {
             }
             return true
         }
+        .sheet(isPresented: $showShare) { ActivityView(items: shareURLs) }
         .sheet(item: $moveTarget) { target in
             MoveSheet(folders: rootFolders, currentFolder: target.folderID) { destination in
                 Task { await move(target, to: destination) }
@@ -213,6 +216,7 @@ struct VaultGridView: View {
                                 title: side == .hidden ? "Unhide" : "Hide") {
                     Task { await batchSetHidden(side != .hidden) }
                 }
+                selectionButton(icon: "square.and.arrow.up", title: "Share") { Task { await shareSelected() } }
                 selectionButton(icon: "folder", title: "Move") { showBatchMove = true }
                 selectionButton(icon: "archivebox", title: "Archive") { Task { await batchArchive() } }
                 selectionButton(icon: "trash", title: "Delete", role: .destructive) { Task { await batchDelete() } }
@@ -417,6 +421,21 @@ struct VaultGridView: View {
         photoPicks = []; await load()
     }
     /// Hidden buttons that give an iPad hardware keyboard shortcuts for the common actions.
+    /// Decrypts the selected visible files into temporary copies and opens the share sheet.
+    /// Hidden files are never shared out.
+    private func shareSelected() async {
+        guard let items = try? await VaultService.shared.snapshots(forIDs: Array(selectedIDs)) else { return }
+        var urls: [URL] = []
+        for item in items where !item.isHidden {
+            if let url = try? await VaultService.shared.decryptToPreviewCache(id: item.id, name: item.name, side: side) {
+                urls.append(url)
+            }
+        }
+        guard !urls.isEmpty else { return }
+        shareURLs = urls
+        showShare = true
+    }
+
     private var keyboardShortcuts: some View {
         ZStack {
             Button("Import Files") { showFileImporter = true }
